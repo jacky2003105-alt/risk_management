@@ -13,5 +13,35 @@ else {for(const h of unit.querySelectorAll('h3')){if(!h.textContent.includes('�
 // 改寫後的章節把易錯的地方寫回推導裡，只有仍以「易錯提醒」獨立成節的舊章節需要收合。
 for(const unit of document.querySelectorAll('.unit')){for(const h of unit.querySelectorAll('h3')){if(!h.textContent.includes('易錯提醒'))continue;let e=h;while(e&&!(e!==h&&e.tagName==='H3')){solutions.push(e);e=e.nextElementSibling;}}}
 const b=document.querySelector('#answers');b.onclick=()=>{const hide=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',String(hide));b.textContent=hide?'顯示參考解答':'隱藏參考解答';solutions.forEach(e=>e.classList.toggle('answer-hidden',hide));};
+// ── 名詞按鈕：點一下顯示定義 ──────────────────────────────
+const gdefs={};
+document.querySelectorAll('#glossary .gdef').forEach(d=>gdefs[d.dataset.term]=d);
+let pop=null;
+function closePop(){if(pop){pop.remove();pop=null;}document.querySelectorAll('button.term[aria-expanded="true"]').forEach(b=>b.setAttribute('aria-expanded','false'));}
+function openPop(btn){
+ const src=gdefs[btn.dataset.term];if(!src)return;
+ pop=document.createElement('div');pop.className='termpop';pop.dataset.for=btn.dataset.term;
+ pop.innerHTML=src.innerHTML+'<button type="button" class="termclose" aria-label="關閉">×</button>';
+ document.body.appendChild(pop);
+ btn.setAttribute('aria-expanded','true');
+ const r=btn.getBoundingClientRect();
+ const w=Math.min(430,window.innerWidth-24);
+ pop.style.width=w+'px';
+ let left=r.left+scrollX+r.width/2-w/2;
+ left=Math.max(scrollX+12,Math.min(left,scrollX+window.innerWidth-w-12));
+ pop.style.left=left+'px';
+ // 下方放不下就翻到上方
+ const below=window.innerHeight-r.bottom;
+ pop.style.top=(r.bottom+scrollY+8)+'px';
+ if(below<pop.offsetHeight+24&&r.top>pop.offsetHeight+24)pop.style.top=(r.top+scrollY-pop.offsetHeight-8)+'px';
+}
+document.addEventListener('click',e=>{
+ const btn=e.target.closest('button.term');
+ if(btn){const same=pop&&pop.dataset.for===btn.dataset.term;closePop();if(!same)openPop(btn);e.preventDefault();return;}
+ if(pop&&!e.target.closest('.termpop'))closePop();
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closePop();});
+addEventListener('scroll',()=>{if(pop)closePop();},{passive:true});
+addEventListener('resize',closePop);
 window.notesReady=true;
 });
