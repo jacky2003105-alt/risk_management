@@ -1,0 +1,369 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>風險管理｜整合筆記</title><meta name="description" content="從風險偏好、預防性儲蓄、隨機優越到風險指數的整合筆記，含逐步推導、作業參考解答與電子文獻。"><link rel="stylesheet" href="assets/katex/katex.min.css"><link rel="stylesheet" href="assets/style.css"><script defer src="assets/katex/katex.min.js"></script><script defer src="assets/katex/auto-render.min.js"></script><script defer src="assets/app.js"></script></head><body><header><div class="eyebrow">RISK MANAGEMENT · COURSE NOTES</div><h1>風險管理</h1><p class="subtitle">從偏好、隨機優越，到風險指數</p><p class="intro">六份手寫筆記的整合版。原稿未附錄音，正文依可辨識的筆記重建；「補充推導」與「參考解答」是為接續邏輯所作的說明，不代表老師逐字講述。全文以報酬或財富越高越好的方向比較，損失指標另行說明符號。文末附完整閱讀清單與電子來源。</p><div class="hero-links"><a href="pdf/risk-management.pdf" download>下載整合 PDF ↗</a><a href="#references">電子文獻 ↗</a></div></header><nav aria-label="筆記導覽"><label for="jump">閱讀位置</label><select id="jump"><option value="top">整合筆記・從頭閱讀</option><option value="s01">01｜先把報酬、單位與期間定義清楚</option><option value="s02">02｜風險是什麼：三種指標回答不同問題</option><option value="s03">03｜期望效用、風險趨避與 Jensen 不等式</option><option value="s04">04｜為什麼風險趨避要用導數的比值</option><option value="s05">05｜常見效用函數與 DARA</option><option value="s06">06｜從消費平滑到預防性儲蓄</option><option value="s07">07｜把風險放在哪個狀態：二階、三階與四階偏好</option><option value="s08">08｜比較兩個人的風險趨避：凹轉換</option><option value="s09">09｜★ 保險作業：越怕風險，為什麼買得越多</option><option value="s10">10｜★ 投資作業：越怕風險，為什麼少持有風險資產</option><option value="s11">11｜已知效用與未知效用，是兩種比較問題</option><option value="s12">12｜一階隨機優越：把效用函數消掉</option><option value="s13">13｜分位數與 VaR：看見門檻，也看清限制</option><option value="s14">14｜二階隨機優越：累積的不利結果</option><option value="s15">15｜SSD 與變異數：必要條件不是充分條件</option><option value="s16">16｜條件尾端平均與分位數積分</option><option value="s17">17｜高階隨機優越與邊界條件</option><option value="s18">18｜風險配置定理與近乎隨機優越</option><option value="s19">19｜Aumann–Serrano：從接受門檻定義風險</option><option value="s20">20｜常態風險指數、SSD 一致性與數值求解</option><option value="s21">21｜Foster–Hart 與一般化風險量</option><option value="s22">22｜★ 分散風險作業與避險比率</option><option value="s23">23｜選擇權：期望給付、價格與無套利界限</option><option value="s24">24｜★ 折現時間作業與課程提示</option><option value="s25">25｜中英術語對照與符號索引</option><option value="references">26｜電子文獻與書目校正</option><option value="ref1">閱讀清單｜風險偏好：理論</option><option value="ref2">閱讀清單｜風險偏好：估計</option><option value="ref3">閱讀清單｜風險衡量：傳統與延伸</option><option value="ref4">閱讀清單｜風險指數</option><option value="ref5">閱讀清單｜報酬與風險估計</option><option value="ref6">閱讀清單｜風險指數的應用</option><option value="ref7">閱讀清單｜績效比較</option><option value="ref8">閱讀清單｜投資組合效率與選擇權界限</option></select><button id="answers" aria-pressed="false">隱藏參考解答</button><button id="top" aria-label="回到頁首">↑</button></nav><main><article id="s01" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>01｜先把報酬、單位與期間定義清楚</h2><h3>統整內容</h3>
+<p class="plain"><strong>毛報酬</strong>（Gross return）包含原本投入的本金。<strong>淨報酬率</strong>（Net return）只計算新增損益。<strong>對數報酬率</strong>（Log return）則是毛報酬的自然對數。令期初價格為 $P_{t-1}$、期末價格為 $P_t$，先依原稿忽略股利：</p>
+<div class="math">\[G_t=\frac{P_t}{P_{t-1}},\qquad R_t=G_t-1,\qquad r_t=\ln G_t=\ln(1+R_t).\]</div>
+<p class="plain">毛報酬在價格為正時為正，淨報酬最低為負百分之百，對數報酬則可取任何實數。原稿早期把毛報酬寫成 $R_t$，後面又把 $R_t$ 用於對數報酬，本頁統一改用上述符號。若有股利 $D_t$，單期持有報酬的分子要改為 $P_t+D_t$。<strong>即：先確認資料有沒有包含本金與股利，才知道兩組數字能不能直接相比。</strong></p>
+<p class="plain">對數報酬跨期相加，毛報酬跨期相乘：</p>
+<div class="math">\[\ln\frac{P_T}{P_0}=\sum_{t=1}^{T}r_t,\qquad \frac{P_T}{P_0}=\prod_{t=1}^{T}(1+R_t).\]</div>
+<p class="plain"><strong>超額報酬</strong>（Excess return）是同期間資產淨報酬減去無風險淨報酬。原稿以郵局三個月定存為無風險利率的例子，但牌告數字可能是年率。有效年率為 $i_a$ 時，三個月的有效利率為 $(1+i_a)^{1/4}-1$；若銀行採單利報價，則依契約天數及計息基礎換算。即：三個月賺到的報酬，要減三個月可賺到的利息。</p>
+<h3>原稿問題與補充推導</h3>
+<p class="plain">問：週報酬標準差與年報酬標準差為什麼常差一個平方根？</p>
+<p class="plain">答：若週對數報酬同分配、變異數有限，且各週不相關，加總的變異數等於各週變異數相加：</p>
+<div class="math">\[\operatorname{Var}\!\left(\sum_{t=1}^{52}r_t\right)=52\sigma_w^2,\qquad \sigma_a=\sqrt{52}\,\sigma_w.\]</div>
+<p class="plain">有序列相關時，還要加上 $2\sum_{s&lt;t}\operatorname{Cov}(r_s,r_t)$。淨報酬因為複利，平方根法則通常只是近似。<strong>即：平方根來自「變異數先相加，再開根號」，前提是跨期的連動可以忽略。</strong></p>
+<h3>易錯提醒</h3>
+<p class="plain">正值的毛報酬本身沒有負報酬狀態，不能直接當成後文風險指數要求的「可能虧損的賭局」。原稿提及卡方與 F 分配皆非負，是提醒建模時先檢查變數的支持範圍。</p></article><article id="s02" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>02｜風險是什麼：三種指標回答不同問題</h2><h3>統整內容</h3>
+<p class="plain">風險衡量描述投資結果的分配，風險偏好描述決策者如何評價這個分配。原稿用溫度與怕冷、怕熱區分客觀量和主觀接受程度：同一個分配可以給所有人相同的風險指標，但不同的人仍可能做不同選擇。<strong>即：先問結果怎麼變，再問這個人在不在意這種變動。</strong></p>
+<p class="plain"><strong>期望值</strong>（Expectation）是依機率加權的結果。<strong>變異數</strong>（Variance）衡量結果離平均值有多遠，<strong>標準差</strong>（Standard deviation）是其平方根。若結果 $x_i$ 的機率為 $p_i$：</p>
+<div class="math">\[\sum_{i=1}^n p_i=1,\quad p_i\ge0,\quad \mu=E[X]=\sum_{i=1}^n p_ix_i,\quad \sigma^2=\sum_{i=1}^n p_i(x_i-\mu)^2.\]</div>
+<p class="plain">變異數同時把高於平均與低於平均的偏離算進來：</p>
+<div class="math">\[\sigma^2=\sum_{x_i&lt;\mu}p_i(x_i-\mu)^2+\sum_{x_i\ge\mu}p_i(x_i-\mu)^2.\]</div>
+<p class="plain">因此，標準差是在衡量波動，並沒有單獨把「多賺很多」視為好事。報酬率以小數或百分點表示，也會改變數值尺度。<strong>即：波動大表示結果分散，是否值得承擔還要看可能獲得多少報酬。</strong></p>
+<p class="plain">原稿以 $X\sim N(\mu,\sigma^2)$、$\mu&gt;0$ 比較三種量：</p>
+<div class="table-wrap"><table><tr><th>指標</th><th>公式</th><th>回答的問題</th></tr><tr><td>標準差</td><td>$\sigma$</td><td>結果距離平均值有多分散</td></tr><tr><td>常態損失分位數</td><td>$z_{1-\alpha}\sigma-\mu$</td><td>指定尾端機率下的損失門檻</td></tr><tr><td>Aumann–Serrano 指數</td><td>$\frac{\sigma^2}{2\mu}$</td><td>使特定風險趨避者恰好願意接受的風險尺度</td></tr></table></div>
+<p class="plain">其中 $z_{1-\alpha}$ 是標準常態的分位數。原稿寫的 1.96 對應單尾機率 2.5%，不是單尾 5%；單尾 5% 約為 1.645。第三個公式會在風險指數單元推導，且只在常態情況下是該指數的精確表示。</p>
+<p class="plain">問：每個結果都多給固定金額 $c&gt;0$，風險會不會改變？</p>
+<p class="plain">答：$\operatorname{Var}(X+c)=\operatorname{Var}(X)$，因為結果與平均值一起平移，距離沒有改變。但損失分位數下降，且正均值常態下 $\frac{\sigma^2}{2(\mu+c)}&lt;\frac{\sigma^2}{2\mu}$。<strong>即：保證多拿一筆錢不會減少波動，卻會改善承擔這筆風險的條件。</strong></p>
+<h3>補充說明</h3>
+<p class="plain">原稿另記「存續期間最長是存續年限」。對現金流非負的固定收益債券，<strong>麥考利存續期間</strong>（Macaulay duration）是以現值為權重的收款時間平均，故不超過最晚付款時間；零息債券等於到期年限。含選擇權、負現金流或其他存續期間定義時，要重新確認條件。</p></article><article id="s03" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>03｜期望效用、風險趨避與 Jensen 不等式</h2><h3>統整內容</h3>
+<p class="plain"><strong>效用函數</strong>（Utility function）用 $u(w)$ 表示財富帶來的評價。<strong>期望效用</strong>（Expected utility）先對每個結果計算效用，再依機率加權。$u&#x27;(w)&gt;0$ 表示財富越多越好；$u&#x27;&#x27;(w)&lt;0$ 表示增加一元帶來的效用隨財富增加而減少，也就是邊際效用遞減。</p>
+<p class="plain">原稿比較確定拿 50 元與各半機率拿 100 元或 0 元。兩者平均都是 50 元，但效用分別是：</p>
+<div class="math">\[u(50),\qquad \frac12u(100)+\frac12u(0).\]</div>
+<p class="plain"><strong>Jensen 不等式</strong>（Jensen&#x27;s inequality）指出，對凹函數，$E[u(X)]\le u(E[X])$。幾何上，兩端點相連的弦位在凹曲線下方。隨機方案的平均效用在弦上，確定拿平均金額的效用在曲線上。因此，在期望效用架構中，凹效用對應風險趨避；嚴格凹且結果不確定時，偏好嚴格。即：多拿到的快樂，補不回少拿到時失去的快樂。</p>
+<figure><img src="assets/diagrams/jensen.svg" alt="凹效用曲線位於兩端點的弦上方"><figcaption>依原稿概念以向量圖重繪；示意圖，非實證資料。</figcaption></figure>
+<h3>補充推導：Jensen 不等式從哪裡來</h3>
+<p class="plain">凹函數的一條切線會在整條曲線上方。令平均財富為 $m=E[X]$，在 $m$ 作切線，對每個可能結果都有 $u(x)\le u(m)+u&#x27;(m)(x-m)$。右邊的意思是：假裝每一元一直保持平均財富處的邊際價值，便會高估偏離平均後的效用。對兩邊取期望，固定的 $u(m),u&#x27;(m)$ 可移到期望符號外：</p>
+<div class="math">\[E[u(X)]\le u(m)+u&#x27;(m)(E[X]-m)=u(m).\]</div>
+<p class="plain">平均偏離恰好為零，切線的一階變動就消失，留下曲率造成的損失。這個證明適用於可積分的結果與效用，並不要求分配常態。嚴格凹且結果不是常數時，至少一部分結果嚴格位於切線下方，平均後便得到嚴格不等式。<strong>即：平均賺到的錢一樣，效用曲線的彎曲程度仍會讓不確定的方案比較不吸引人。</strong></p>
+<p class="plain"><strong>確定等值</strong>（Certainty equivalent）$CE$ 是滿足 $u(CE)=E[u(X)]$ 的確定金額。因為 $u$ 嚴格遞增，可以取反函數得到 $CE=u^{-1}(E[u(X)])$。把剛才的 Jensen 不等式兩邊取這個遞增反函數，得到 $CE\le E[X]$。兩者差距 $E[X]-CE$ 就是風險溢酬。下一節要回答的正是：當風險很小時，這個差距如何由效用的導數算出來？</p>
+<h3>易錯提醒</h3>
+<p class="plain">原稿例子的某一行把高報酬效用寫成 $u(50)$，依上方賭局應為 $u(100)$。另外，風險中立的線性效用使兩案無差異；凸效用則偏好該均值不變的風險。</p></article><article id="s04" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>04｜為什麼風險趨避要用導數的比值</h2><h3>統整內容</h3>
+<p class="plain"><strong>絕對風險趨避係數</strong>（Absolute risk aversion）與<strong>相對風險趨避係數</strong>（Relative risk aversion）定義為：</p>
+<div class="math">\[A(w)=-\frac{u&#x27;&#x27;(w)}{u&#x27;(w)},\qquad R_u(w)=-\frac{w u&#x27;&#x27;(w)}{u&#x27;(w)}=wA(w).\]</div>
+<p class="plain">單看 $u&#x27;&#x27;$ 不適合比較風險趨避強弱。因為 $v(w)=a+bu(w)$、$b&gt;0$ 與 $u$ 描述相同的期望效用排序，卻使二階導數乘上 $b$。將二階導數除以一階導數後，這個任意比例才會消掉。<strong>即：換一個效用的計分單位，不應改變這個人怕風險的程度。</strong></p>
+<h3>補充推導：小風險溢酬</h3>
+<p class="plain">令初始財富 $w$ 確定，擾動 $\varepsilon$ 的平均為零、變異數為 $\sigma_\varepsilon^2$。<strong>風險溢酬</strong>（Risk premium） $\pi$ 是願意支付以消除這項風險的金額，定義為：</p>
+<div class="math">\[E[u(w+\varepsilon)]=u(w-\pi).\]</div>
+<p class="plain">左邊在 $w$ 附近展開到二階，右邊對小額 $\pi$ 展開到一階。左邊的一階項因 $E[\varepsilon]=0$ 消失：</p>
+<div class="math">\[u(w)+\frac12u&#x27;&#x27;(w)\sigma_\varepsilon^2\approx u(w)-\pi u&#x27;(w).\]</div>
+<p class="plain">消去共同的 $u(w)$，再除以正的 $u&#x27;(w)$，得到：</p>
+<div class="math">\[\pi\approx\frac12A(w)\sigma_\varepsilon^2.\]</div>
+<p class="plain">風險本身由變異數表達，個人的厭惡程度由 $A(w)$ 表達。這是局部近似，風險很大或尾端很厚時，忽略的高階項可能重要。<strong>即：同樣的波動，越怕風險的人願意花越多錢消除它。</strong></p>
+<h3>補充推導：為什麼兩邊展開的階數不同</h3>
+<p class="plain">把風險明確寫成 $tZ$，其中 $E[Z]=0$、$E[Z^2]=\sigma_Z^2$，$t$ 控制風險大小。設 $u$ 足夠光滑，且餘項可取期望。展開左邊時，每一項都先保留，再取期望：</p>
+<div class="math">\[E[u(w+tZ)]=u(w)+t u&#x27;(w)E[Z]+\frac{t^2}{2}u&#x27;&#x27;(w)E[Z^2]+o(t^2).\]</div>
+<p class="plain">記 $o(t^2)$ 為除以 $t^2$ 後趨近零的餘項。平均為零讓一次項消失，效用損失從二次項才開始。因此與它等值的確定損失 $\pi(t)$ 也從 $t^2$ 的量級開始。右邊的 $\pi(t)^2$ 是 $t^4$ 量級，在只保留到 $t^2$ 的近似裡便可省略：</p>
+<div class="math">\[u(w-\pi(t))=u(w)-u&#x27;(w)\pi(t)+o(t^2),\qquad \pi(t)=-\frac{u&#x27;&#x27;(w)}{2u&#x27;(w)}t^2\sigma_Z^2+o(t^2).\]</div>
+<p class="plain">所以左右使用不同展開階數，是因為「隨機擾動的大小」與「願付的確定損失」本來就處於不同量級。若風險有非零平均，應先把平均移入基準財富，再對剩餘零均值部分展開。<strong>即：很小的公平賭局，一次的平均得失互相抵銷，怕風險的代價才從第二層效果出現。</strong></p>
+<h3>★ 原稿作業的參考解答：比例風險</h3>
+<p class="plain">題目：若 $E[u(w(1+\varepsilon))]=u(w(1-\theta))$，推導願付財富比例 $\theta$。</p>
+<p class="plain">參考解答：財富擾動是 $w\varepsilon$，所以變異數為 $w^2\sigma_\varepsilon^2$；確定損失是 $w\theta$。代入上式後兩邊除以 $w$：</p>
+<div class="math">\[w\theta\approx\frac12A(w)w^2\sigma_\varepsilon^2\quad\Longrightarrow\quad\theta\approx\frac12R_u(w)\sigma_\varepsilon^2.\]</div>
+<p class="plain">解析：絕對係數對應固定金額風險，相對係數對應固定比例風險。<strong>即：問願意付多少錢，用金額尺度；</strong>問願意付財富的幾成，用比例尺度。</p>
+<p class="warning">易錯提醒：$\pi$ 有金額單位，$\theta$ 沒有金額單位。兩者不能直接互換。</p><p class="source-link">延伸電子文獻：<a href="https://msuweb.montclair.edu/~lebelp/PrattRiskSmalllargeEC1964.pdf" target="_blank" rel="noopener">Pratt (1964)</a></p></article><article id="s05" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>05｜常見效用函數與 DARA</h2><h3>統整內容</h3>
+<div class="table-wrap"><table><tr><th>效用函數</th><th>一階與二階導數</th><th>絕對係數</th><th>相對係數與條件</th></tr><tr><td>線性 $u(w)=w$</td><td>$u&#x27;=1,\ u&#x27;&#x27;=0$</td><td>$0$</td><td>$0$，風險中立</td></tr><tr><td>二次 $u(w)=w-\frac b2w^2$</td><td>$u&#x27;=1-bw,\ u&#x27;&#x27;=-b$</td><td>$\frac b{1-bw}$</td><td>$\frac{bw}{1-bw}$，限 $b&gt;0,w&lt;\frac1b$</td></tr><tr><td>對數 $u(w)=\ln w$</td><td>$u&#x27;=\frac1w,\ u&#x27;&#x27;=-\frac1{w^2}$</td><td>$\frac1w$</td><td>$1$，限 $w&gt;0$</td></tr><tr><td>冪次 $u(w)=\frac{w^{1-\gamma}}{1-\gamma}$</td><td>$u&#x27;=w^{-\gamma},\ u&#x27;&#x27;=-\gamma w^{-\gamma-1}$</td><td>$\frac\gamma w$</td><td>$\gamma$，限 $w&gt;0,\gamma&gt;0,\gamma\ne1$</td></tr><tr><td>指數 $u(w)=-e^{-cw}$</td><td>$u&#x27;=ce^{-cw},\ u&#x27;&#x27;=-c^2e^{-cw}$</td><td>$c$</td><td>$cw$，限 $c&gt;0$</td></tr></table></div>
+<p class="plain">指數效用具有<strong>固定絕對風險趨避</strong>（CARA）；冪次及對數效用具有<strong>固定相對風險趨避</strong>（CRRA）。對數可由正規化冪次效用 $\frac{w^{1-\gamma}-1}{1-\gamma}$ 在 $\gamma\to1$ 時取極限得到。</p>
+<p class="plain"><strong>遞減絕對風險趨避</strong>（DARA）表示財富增加時，對固定金額風險的厭惡下降。固定絕對係數不代表相對係數也固定；兩種比較尺度要分開。</p>
+<h3>★ 原稿作業的參考解答：DARA 為何推出三階導數為正</h3>
+<p class="plain">題目：在 $u&#x27;&gt;0,u&#x27;&#x27;&lt;0$ 下，證明 $A&#x27;(w)&lt;0$ 推出 $u&#x27;&#x27;&#x27;(w)&gt;0$。</p>
+<p class="plain">參考解答：用商數微分法則：</p>
+<div class="math">\[A&#x27;(w)=\frac{[u&#x27;&#x27;(w)]^2-u&#x27;&#x27;&#x27;(w)u&#x27;(w)}{[u&#x27;(w)]^2}&lt;0.\]</div>
+<p class="plain">分母為正，故 $u&#x27;&#x27;&#x27;(w)u&#x27;(w)&gt;[u&#x27;&#x27;(w)]^2&gt;0$。再除以 $u&#x27;(w)&gt;0$，得到 $u&#x27;&#x27;&#x27;(w)&gt;0$。</p>
+<p class="plain">解析：DARA 除了要求三階導數為正，也要求它夠大，能勝過二階導數平方的影響。因此三階導數為正只是必要條件。<strong>即：越有錢越能承受同額風險，需要比單純有預防心更強的條件。</strong></p>
+<p class="warning">易錯提醒：反向推論不成立。CARA 的三階導數為正，但 $A&#x27;=0$。若記預防係數 $P(w)=-\frac{u&#x27;&#x27;&#x27;(w)}{u&#x27;&#x27;(w)}$，則 $A&#x27;=A(A-P)$，所以在嚴格風險趨避下 DARA 等價於 $P&gt;A$。</p><p class="source-link">延伸電子文獻：<a href="https://msuweb.montclair.edu/~lebelp/PrattRiskSmalllargeEC1964.pdf" target="_blank" rel="noopener">Pratt (1964)</a></p></article><article id="s06" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>06｜從消費平滑到預防性儲蓄</h2><h3>統整內容</h3>
+<p class="plain">令現在財富為 $w_0$、未來收入為 $w_1$，儲蓄 $s$ 使現在消費減少、未來消費增加。依原稿先令利率為零、時間折現因子為一，兩期效用分別為 $u,v$：</p>
+<div class="math">\[J(s)=u(w_0-s)+v(w_1+s).\]</div>
+<p class="plain">內部最適儲蓄 $s^*$ 滿足：</p>
+<div class="math">\[J&#x27;(s^*)=-u&#x27;(w_0-s^*)+v&#x27;(w_1+s^*)=0,\qquad J&#x27;&#x27;(s)=u&#x27;&#x27;(w_0-s)+v&#x27;&#x27;(w_1+s)&lt;0.\]</div>
+<p class="plain">第一項是現在少消費一元的效用損失，第二項是未來多消費一元的效用增加。二階導數為負使一階導數隨儲蓄下降，所以內部駐點若存在便是唯一最大值。若兩期效用相同且退休後收入為零，邊際效用相等就意味兩期消費相等，故 $s^*=\frac{w_0}{2}$。<strong>即：先存到現在少花一元與未來多花一元的價值相同。</strong></p>
+<h3>補充推導：收入變得不確定，為什麼會多存</h3>
+<p class="plain">令未來收入加上零均值風險 $\varepsilon$。新的目標為：</p>
+<div class="math">\[\widetilde J(s)=u(w_0-s)+E[v(w_1+s+\varepsilon)].\]</div>
+<p class="plain">在原本最適的 $s^*$ 評估新目標的斜率，利用原本的一階條件：</p>
+<div class="math">\[\widetilde J&#x27;(s^*)=E[v&#x27;(w_1+s^*+\varepsilon)]-v&#x27;(w_1+s^*).\]</div>
+<p class="plain">若 $v&#x27;&#x27;&#x27;&gt;0$，邊際效用函數 $v&#x27;$ 是凸的。Jensen 不等式使右式非負，在嚴格條件下為正。新的目標仍嚴格凹，因此必須把儲蓄提高，斜率才會降回零，即 $s^{**}&gt;s^*$。<strong>即：未來可能缺錢時，多留一元的價值變高，所以今天會多存一點。</strong></p>
+<h3>預防溢酬與符號</h3>
+<p class="plain">定義 $\psi$ 使 $E[v&#x27;(x+\varepsilon)]=v&#x27;(x-\psi)$。對邊際效用作相同的泰勒展開：</p>
+<div class="math">\[\psi\approx\frac12\left(-\frac{v&#x27;&#x27;&#x27;(x)}{v&#x27;&#x27;(x)}\right)\sigma_\varepsilon^2=\frac12P_v(x)\sigma_\varepsilon^2.\]</div>
+<p class="plain"><strong>預防性</strong>（Prudence）由 $v&#x27;&#x27;&#x27;&gt;0$ 描述，其強度用 $P_v$ 衡量。因 $v&#x27;&#x27;&lt;0$，邊際效用隨財富下降而上升，所以正的 $\psi$ 能代表風險引起的邊際效用增加。原稿「marginal utility &lt; 0」應理解為「邊際效用的斜率為負」，也就是 $v&#x27;&#x27;&lt;0$。</p>
+<h3>補充推導：多存多少，而不只是知道會多存</h3>
+<p class="plain">令無風險最適消費為 $c_0=w_0-s^*$、$c_1=w_1+s^*$。風險很小時，把新增儲蓄寫成 $\delta=s^{**}-s^*$。對新的斜率在原解附近展開，略去高於風險變異數量級的項：</p>
+<div class="math">\[0\approx \underbrace{-u&#x27;(c_0)+v&#x27;(c_1)}_{=0}+\{u&#x27;&#x27;(c_0)+v&#x27;&#x27;(c_1)\}\delta+\frac12v&#x27;&#x27;&#x27;(c_1)\sigma_\varepsilon^2.\]</div>
+<p class="plain">第一組等於零，因為原本已達最適。第二組描述再多存一點如何降低斜率：現在更缺錢，放棄現在消費更痛苦，同時未來更有錢，再存一元的幫助變小。第三組是收入風險提高未來預期邊際效用的幅度。解出：</p>
+<div class="math">\[\delta\approx-\frac{v&#x27;&#x27;&#x27;(c_1)\sigma_\varepsilon^2}{2\{u&#x27;&#x27;(c_0)+v&#x27;&#x27;(c_1)\}}.\]</div>
+<p class="plain">分子在有預防性時為正，分母為負，外面的負號讓新增儲蓄為正。這也說明預防溢酬 $\psi$ 與實際多存的 $\delta$ 不同：前者只換算未來邊際效用，後者還要兼顧今天少消費的成本。<strong>即：風險讓你想多留錢，但現在少花錢有多難受，也會決定最後多存多少。</strong></p>
+<p class="plain">若恢復折現因子 $\beta&gt;0$ 與無風險利率 $r$，未來消費是 $w_1+(1+r)s$，一階條件改為 $u&#x27;(w_0-s)=\beta(1+r)E[v&#x27;(w_1+(1+r)s+\varepsilon)]$。係數 $1+r$ 來自今天多存一元會在未來增加多少消費，$\beta$ 則是未來效用換算為今天評價的權重。</p>
+<h3>易錯提醒</h3>
+<p class="plain">原稿旁註一度把未來儲蓄寫為減號，依資源流向應是加號。有借貸限制或最適解在邊界時，應改用不等式條件；非嚴格凹只保證駐點是最大值，不保證唯一。</p><p class="source-link">延伸電子文獻：<a href="https://www.nber.org/papers/w2848.pdf" target="_blank" rel="noopener">Kimball (1990)</a></p></article><article id="s07" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>07｜把風險放在哪個狀態：二階、三階與四階偏好</h2><h3>統整內容</h3>
+<p class="plain">以下兩分支機率皆為一半，並加上足夠的共同背景財富 $w$，使所有結果都在效用定義域內。原稿用零作低財富基準，這只是相對記帳，不表示對數效用可以在零或負財富上運算。</p>
+<div class="table-wrap"><table><tr><th>偏好</th><th>方案 A</th><th>方案 B</th><th>對所有適當參數的偏好條件</th></tr><tr><td>風險趨避</td><td>$[w+W-L,\ w]$</td><td>$[w+W,\ w-L]$</td><td>$u&#x27;&#x27;\le0$</td></tr><tr><td>預防性</td><td>$[w+W+\varepsilon,\ w]$</td><td>$[w+W,\ w+\varepsilon]$</td><td>$u&#x27;&#x27;&#x27;\ge0$</td></tr><tr><td><strong>節制性</strong>（Temperance）</td><td>$[w+\varepsilon_1,\ w+\varepsilon_2]$</td><td>$[w+\varepsilon_1+\varepsilon_2,\ w]$</td><td>$u^{(4)}\le0$</td></tr></table></div>
+<p class="plain">這裡 $W,L&gt;0$，各風險平均為零，最後一列的兩個風險相互獨立。第一列把固定損失放到比較有錢的狀態，第二列把零均值風險放到比較有錢的狀態，第三列把兩種風險分開放。<strong>即：不同階的風險偏好，描述不同類型的不利因素應如何分配。</strong></p>
+<h3>補充推導：預防性那一列</h3>
+<p class="plain">令 $D(z)=E[u(z+\varepsilon)]-u(z)$。A 相對 B 的效用差是 $\frac12[D(w+W)-D(w)]$。若 $u&#x27;&#x27;&#x27;&gt;0$，則 $u&#x27;$ 為凸函數，故 $D&#x27;(z)=E[u&#x27;(z+\varepsilon)]-u&#x27;(z)\ge0$。所以高財富時加入風險的效用影響較有利，A 的期望效用不低於 B。<strong>即：有較多財富時承擔同一筆風險，對效用的傷害較小。</strong></p>
+<h3>補充推導：節制性與四階導數</h3>
+<p class="plain">令 $D_1(z)=E[u(z+\varepsilon_1)]-u(z)$。兩風險獨立，使 A 減 B 的期望效用可寫為 $\frac12\{D_1(w)-E[D_1(w+\varepsilon_2)]\}$。若 $u^{(4)}\le0$，則 $u&#x27;&#x27;$ 為凹函數，Jensen 不等式給 $D_1&#x27;&#x27;(z)=E[u&#x27;&#x27;(z+\varepsilon_1)]-u&#x27;&#x27;(z)\le0$。所以 $D_1$ 也是凹函數，再用 Jensen 得 $D_1(w)\ge E[D_1(w+\varepsilon_2)]$，因而偏好分開承擔風險的 A。<strong>即：已經承擔一項風險時，再疊加另一項風險的代價會較高。</strong></p>
+<p class="plain">原稿另提出 $E[u&#x27;&#x27;(x+\varepsilon)]=u&#x27;&#x27;(x-\psi_4)$。同樣作小風險展開，在 $u&#x27;&#x27;&#x27;(x)\ne0$ 時得到 $\psi_4\approx\frac12[-\frac{u^{(4)}(x)}{u&#x27;&#x27;&#x27;(x)}]\sigma_\varepsilon^2$。這是二階導數的等值位移，不能直接稱為消除風險願付的金額；具體決策意義要由模型另外推導。</p>
+<h3>原稿例子</h3>
+<p class="plain">原稿給 $\varepsilon$ 為各半機率增加或減少 100。台日棒球賽例子則比較「支持的球隊贏，同時賺 1,000 元」與「支持的球隊輸，但賺 1,000 元」。若用 $u(m+h)$ 表示金錢與情緒的共同尺度，後者有抵銷不利狀態的效果；若實際偏好是二變量效用 $u(m,h)$，需檢查交叉導數等條件，單靠金錢效用的二階導數不足以決定下注方向。</p>
+<p class="plain">原稿亦畫出全民健保前後、軍公教與非軍公教的儲蓄比較，記為四組 $s_1,s_2,s_3,s_4$。這是在思考醫療支出風險下降與儲蓄的關係，未提供論文題名或估計數字。補充辨析：若採差異中的差異，需先指定處理組及比較組，並要求平行趨勢，才能把兩組前後變動之差解釋為政策效果。</p><p class="source-link">延伸電子文獻：<a href="https://www.econstor.eu/bitstream/10419/18826/1/cesifo1_wp1462.pdf" target="_blank" rel="noopener">Eeckhoudt &amp; Schlesinger (2006)</a></p></article><article id="s08" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>08｜比較兩個人的風險趨避：凹轉換</h2><h3>統整內容</h3>
+<p class="plain">為避免與累積分配函數混淆，本頁用 $\phi$ 表示原稿的轉換函數 $G$。令 $v(w)=\phi(u(w))$、$\phi&#x27;&gt;0$、$\phi&#x27;&#x27;\le0$，即先用 $u$ 評價，再作一次遞增凹轉換。</p>
+<p class="plain">鏈鎖律給出：</p>
+<div class="math">\[v&#x27;=\phi&#x27;(u)u&#x27;,\qquad v&#x27;&#x27;=\phi&#x27;&#x27;(u)(u&#x27;)^2+\phi&#x27;(u)u&#x27;&#x27;.\]</div>
+<p class="plain">取負的二階與一階導數比：</p>
+<div class="math">\[A_v(w)=A_u(w)-\frac{\phi&#x27;&#x27;(u(w))}{\phi&#x27;(u(w))}u&#x27;(w)\ge A_u(w).\]</div>
+<p class="plain">因為 $u&#x27;&gt;0$、$\phi&#x27;&gt;0$、$\phi&#x27;&#x27;\le0$，多出來的項非負。適當的光滑與共同區間條件下，處處較大的絕對風險趨避係數，也能反向表成這種凹轉換。這是後面保險與投資比較靜態的共同工具。<strong>即：把原有評分再壓低高結果的相對吸引力，就形成更怕風險的偏好。</strong></p>
+<h3>補充推導：反方向的凹轉換怎麼建構</h3>
+<p class="plain">假設 $u,v$ 都在同一財富區間嚴格遞增、二次可微，且處處 $A_v\ge A_u$。因 $u$ 嚴格遞增，才有唯一反函數。令效用分數為 $z=u(w)$，直接定義 $\phi(z)=v(u^{-1}(z))$，就保證 $v=\phi\circ u$。接著驗證這個轉換確實遞增且凹，而非把凹性當成額外假設。</p>
+<div class="math">\[\phi&#x27;(z)=\frac{v&#x27;(w)}{u&#x27;(w)}&gt;0,\qquad \phi&#x27;&#x27;(z)=\frac{v&#x27;&#x27;(w)u&#x27;(w)-v&#x27;(w)u&#x27;&#x27;(w)}{[u&#x27;(w)]^3}=\frac{v&#x27;(w)}{[u&#x27;(w)]^2}\{A_u(w)-A_v(w)\}\le0.\]</div>
+<p class="plain">第二次微分多除一次 $u&#x27;(w)$，因為現在是對 $z$ 微分，鏈鎖律給 $dw/dz=1/u&#x27;(w)$。前面的乘數為正，最後的風險趨避係數之差非正，於是凹性成立。<strong>即：只要每個財富水準都更怕風險，就能把原來的評分重新彎成那個人的評分。</strong></p>
+<h3>補充推導：由導數比較回到願付金額</h3>
+<p class="plain">令同一風險財富 $X$ 的確定等值為 $CE_u,CE_v$。在效用分數 $u(X)$ 上套用凹函數 $\phi$ 的 Jensen 不等式：</p>
+<div class="math">\[E[v(X)]=E[\phi(u(X))]\le\phi(E[u(X)])=\phi(u(CE_u))=v(CE_u).\]</div>
+<p class="plain">左邊等於 $v(CE_v)$，而 $v$ 遞增，因此 $CE_v\le CE_u$。兩人面對同一個 $E[X]$，故 $E[X]-CE_v\ge E[X]-CE_u$。這是整個風險分配的比較，不需要小風險近似。<strong>即：更怕風險的人願意用更少的確定金額換掉同一項風險，也就願意付更多錢消除它。</strong></p><p class="source-link">延伸電子文獻：<a href="https://msuweb.montclair.edu/~lebelp/PrattRiskSmalllargeEC1964.pdf" target="_blank" rel="noopener">Pratt (1964)</a></p></article><article id="s09" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>09｜★ 保險作業：越怕風險，為什麼買得越多</h2><h3>題目</h3>
+<p class="plain">初始財富為 $w$，損失 $L&gt;0$ 以機率 $\pi$ 發生。每單位保額保費為 $p$，保額為 $q$，限制 $0\le q\le L$。比較兩位風險趨避者 $u,v$，且 $v=\phi\circ u$、$\phi&#x27;&gt;0,\phi&#x27;&#x27;\le0$，證明較怕風險的 $v$ 選擇不較少的保額。</p>
+<h3>參考解答</h3>
+<p class="plain">出險與未出險的財富分別為 $w_L=w-L+(1-p)q$、$w_N=w-pq$。保費兩種狀態都付，理賠只有出險才拿。目標與一階條件為：</p>
+<div class="math">\[J_u(q)=\pi u(w_L)+(1-\pi)u(w_N),\]</div>
+<div class="math">\[J_u&#x27;(q)=\pi(1-p)u&#x27;(w_L)-(1-\pi)pu&#x27;(w_N).\]</div>
+<p class="plain">先考慮 $0&lt;p&lt;1$、嚴格凹效用及內部最適 $q_u^*$。此時兩項相等，記共同值為 $d&gt;0$。在同一保額評估 $v$ 的斜率：</p>
+<div class="math">\[J_v&#x27;(q_u^*)=d\{\phi&#x27;(u(w_L))-\phi&#x27;(u(w_N))\}\ge0.\]</div>
+<p class="plain">因 $q_u^*\le L$，出險後財富 $w_L\le w_N$，故 $u(w_L)\le u(w_N)$。凹轉換的導數遞減，於是花括號非負。$J_v$ 為凹函數，斜率需向右才降到零，故 $q_v^*\ge q_u^*$。在相同可行區間的邊界解可用單側斜率延伸比較。</p>
+<h3>解析</h3>
+<p class="plain">多買一單位保險，會把購買力從未出險的富有狀態轉移到出險的貧窮狀態。較怕風險者對後者有較高的相對邊際評價，所以在原本保額上仍想繼續增加保障。<strong>即：更在意缺錢時的損失，就願意把更多錢拿來保障那個狀態。</strong></p>
+<h3>易錯提醒</h3>
+<p class="plain">精算公平時 $p=\pi$，兩位嚴格風險趨避者都選全額保障 $q=L$，所以比較結果可以是相等。原稿把機率、單價及保額的字母混用，這裡統一為 $\pi,p,q$。</p><p class="source-link">延伸電子文獻：<a href="https://msuweb.montclair.edu/~lebelp/PrattRiskSmalllargeEC1964.pdf" target="_blank" rel="noopener">Pratt (1964)</a></p></article><article id="s10" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>10｜★ 投資作業：越怕風險，為什麼少持有風險資產</h2><h3>題目</h3>
+<p class="plain">把財富標準化為一，風險資產毛報酬為 $X$、無風險毛報酬為 $r$，且 $E[X]&gt;r$。配置比例 $\alpha$ 的期末財富為 $W_\alpha=r+\alpha(X-r)$。在相同機會集合下比較 $u$ 與更怕風險的 $v=\phi\circ u$。</p>
+<h3>參考解答</h3>
+<p class="plain">先假設最適比例為內部解且非負，所有財富在共同定義域內。一階、二階導數為：</p>
+<div class="math">\[J_u&#x27;(\alpha)=E[(X-r)u&#x27;(W_\alpha)],\qquad J_u&#x27;&#x27;(\alpha)=E[(X-r)^2u&#x27;&#x27;(W_\alpha)]&lt;0.\]</div>
+<p class="plain">在 $\alpha=0$ 時，$J_u&#x27;(0)=u&#x27;(r)(E[X]-r)&gt;0$，所以從不持有風險資產開始，略增配置有利。令 $\alpha_u^*$ 為原最適，故 $E[(X-r)u&#x27;(W_{\alpha_u^*})]=0$。</p>
+<p class="plain">比較更怕風險者的斜率。當 $X\ge r$，有 $W_{\alpha_u^*}\ge r$，所以 $\phi&#x27;(u(W_{\alpha_u^*}))\le\phi&#x27;(u(r))$。當 $X&lt;r$，前一個大小關係反向，但乘上負的 $X-r$ 又翻回來。因此兩種狀態都滿足：</p>
+<div class="math">\[(X-r)\phi&#x27;(u(W_{\alpha_u^*}))u&#x27;(W_{\alpha_u^*})\le(X-r)\phi&#x27;(u(r))u&#x27;(W_{\alpha_u^*}).\]</div>
+<p class="plain">取期望後右邊為零，故 $J_v&#x27;(\alpha_u^*)\le0$。因 $J_v$ 為凹函數，其最適比例位在左方，得到 $\alpha_v^*\le\alpha_u^*$。若限制 $0\le\alpha\le1$，邊界解以單側條件處理。</p>
+<h3>解析</h3>
+<p class="plain">這裡與保險使用相同的凹轉換，但增加風險資產是讓好狀態更好、壞狀態更壞。更怕風險者提高壞狀態的相對權重，因此會降低配置。<strong>即：保險是在補差的狀態，風險投資是在擴大兩種狀態的差距。</strong></p>
+<h3>易錯提醒</h3>
+<p class="plain">拆成 $X\ge r$ 與 $X&lt;r$ 是關鍵步驟。漏掉負數乘法翻轉不等號，會把整個結論證反。</p><p class="source-link">延伸電子文獻：<a href="https://msuweb.montclair.edu/~lebelp/PrattRiskSmalllargeEC1964.pdf" target="_blank" rel="noopener">Pratt (1964)</a></p></article><article id="s11" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>11｜已知效用與未知效用，是兩種比較問題</h2><h3>統整內容</h3>
+<p class="plain">若已知決策者的效用，直接比較 $E_F[u(X)]$ 與 $E_G[u(X)]$ 即可。原稿例子為 $u(x)=-\frac1{2x^2}$，限 $x&gt;0$，其導數為 $u&#x27;=x^{-3}$、$u&#x27;&#x27;=-3x^{-4}$，再將各方案密度代入積分。</p>
+<p class="plain">但如果只知道對方喜歡更多財富，或知道他怕風險，便不能任選一個效用函數代表所有人。<strong>隨機優越</strong>（Stochastic dominance）要求在指定的整類效用函數下，某一方案都至少一樣好。即：知道一個人的完整偏好，就替那個人算；只知道一類人的共同特性，就找他們都同意的排序。</p>
+<p class="plain">二次效用 $u(x)=x-\frac b2x^2$ 給出：</p>
+<div class="math">\[E[u(X)]=\mu-\frac b2E[X^2]=\mu-\frac b2(\sigma^2+\mu^2).\]</div>
+<p class="plain">給定相同的平均 $\mu$，最大化期望效用等同最小化變異數。這說明平均數—變異數方法與效用之間的一個連結，但二次效用的遞增範圍受限。若沒有分配或效用限制，只看兩個動差不能代表全部風險趨避者。</p></article><article id="s12" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>12｜一階隨機優越：把效用函數消掉</h2><h3>統整內容與補充推導</h3>
+<p class="plain">令兩方案的密度為 $f,g$，累積分配函數為 $F,G$，共同支持在 $[a,b]$。為使分部積分直觀，先假設連續分配，端點無原子。記效用差為 $\Delta_u$：</p>
+<div class="math">\[\Delta_u=\int_a^b u(x)[f(x)-g(x)]\,dx.\]</div>
+<p class="plain">利用 $F&#x27;=f,G&#x27;=g$ 分部積分，把微分從密度移到效用：</p>
+<div class="math">\[\Delta_u=[u(x)(F(x)-G(x))]_a^b+\int_a^b u&#x27;(x)[G(x)-F(x)]\,dx.\]</div>
+<p class="plain">因兩個 CDF 在左端同為零、右端同為一，邊界項消失。因此若每個門檻都滿足 $F(x)\le G(x)$，任何 $u&#x27;\ge0$ 都使積分非負。</p>
+<p class="plain">反過來，若某個門檻 $t$ 有 $F(t)&gt;G(t)$，就可用近似階梯的遞增效用，主要獎勵超過 $t$ 的結果。此時 F 超過門檻的機率較小，便不可能獲得所有遞增效用者支持。故：</p>
+<div class="math">\[X_F\succeq_1X_G\iff F(x)\le G(x)\ \text{對所有 }x\iff E_F[u(X)]\ge E_G[u(X)]\ \text{對所有遞增 }u.\]</div>
+<p class="plain"><strong>一階隨機優越</strong>（First-order stochastic dominance, FSD）比較的是每個門檻以下的累積機率。CDF 越低，落在低結果區域的機率越小。即：無論把及格線畫在哪裡，這個方案超過及格線的機會都不比較少。</p>
+<h3>原稿例子</h3>
+<p class="plain">各半機率得到 0 或 60 的方案，一階優越於各半機率得到 0 或 50 的方案。兩者在 0 到 50 之間的 CDF 相同，50 到 60 之間前者的 CDF 較低，60 之後又都等於一。</p>
+<figure><img src="assets/diagrams/fsd.svg" alt="0與60方案的CDF在50至60之間低於0與50方案"><figcaption>依原稿概念以向量圖重繪；示意圖，非實證資料。</figcaption></figure>
+<h3>易錯提醒</h3>
+<p class="plain">FSD 是分配的比較，不是說原本兩個隨機變數在每個共同狀態都滿足 $X_F\ge X_G$。逐狀態優越會推出 FSD，但單靠兩個邊際分配並沒有指定它們如何共同發生。離散分配使用廣義分位數或 Stieltjes 積分，結論仍成立。</p>
+<h3>補充推導：為什麼把密度積成 CDF 就能消去未知偏好</h3>
+<p class="plain">密度差 $f-g$ 必定有正有負，因為兩者總機率都等於一。只知道 $u$ 遞增時，直接看 $u(f-g)$ 的正負沒有幫助。分部積分的用意，是把 $u$ 改成已知非負的 $u&#x27;$，並把分配改成對應的累積機率差。更直觀地，由微積分基本定理，每個結果的效用都可寫成：</p>
+<div class="math">\[u(x)=u(a)+\int_a^b u&#x27;(t)\mathbf1_{\{x&gt;t\}}\,dt.\]</div>
+<p class="plain">符號 $\mathbf1$ 是指示函數，條件成立時等於一，否則等於零。取期望後，$E[\mathbf1_{\{X&gt;t\}}]=1-F_X(t)$。每一小段效用增加 $u&#x27;(t)dt$，都要乘上財富真的超過該門檻的機率。兩方案相減，就得到前面的 $\int u&#x27;(t)(G-F)dt$。這也適用於離散結果，因為只要在門檻上選用一致的 CDF 慣例，單點不影響普通積分。<strong>即：一個人的總評價，可以拆成各個門檻以上的機會，再依他對每個門檻的重視程度加總。</strong></p></article><article id="s13" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>13｜分位數與 VaR：看見門檻，也看清限制</h2><h3>統整內容</h3>
+<p class="plain"><strong>分位數</strong>（Quantile）定義為 $q_X(\alpha)=\inf\{x:F_X(x)\ge\alpha\}$，其中 $0&lt;\alpha&lt;1$。FSD 等價於所有分位數均不較差：</p>
+<div class="math">\[X_F\succeq_1X_G\iff q_F(\alpha)\ge q_G(\alpha)\quad\text{對所有 }\alpha\in(0,1).\]</div>
+<p class="plain">原稿使用報酬左尾機率 $\alpha$，將<strong>風險值</strong>（Value at Risk, VaR）寫成 $-q_X(\alpha)$，並另有截零版本：</p>
+<div class="math">\[\operatorname{VaR}_{1-\alpha}(X)=-q_X(\alpha),\qquad \operatorname{VaR}_{1-\alpha}^{+}(X)=\max\{-q_X(\alpha),0\}.\]</div>
+<p class="plain">負號將「較低的報酬」轉為「較大的損失」。連續常態分配時，$q_X(\alpha)=\mu-z_{1-\alpha}\sigma$，所以 VaR 為 $z_{1-\alpha}\sigma-\mu$。若採截零版本，還要取與零的最大值。<strong>即：這個指標說的是尾端損失的門檻，沒有告訴你跨過門檻後會多慘。</strong></p>
+<h3>原稿問題的辨析</h3>
+<p class="plain">FSD 推出每個信賴水準的 VaR 都不較高。但只檢查 1%、5%、10% 等幾個點，無法證明所有分位數的排序。截零又會把原本不同的正分位數壓成同一個零，因此更無法反推出完整 FSD。</p>
+<p class="plain">單一 VaR 也可能偏好尾端更差的方案。例如方案 A 確定損失 1，方案 B 以 99% 機率得到 0、1% 機率損失 1,000。在 95% 水準，A 的 VaR 是 1，B 是 0，但 B 的最差結果更嚴重。這是補充例子，說明單一分位數忽略門檻外的損失幅度，並不是說 VaR 在所有用途下都無效。</p></article><article id="s14" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>14｜二階隨機優越：累積的不利結果</h2><h3>統整內容與補充推導</h3>
+<p class="plain">現在把效用類縮小為 $u&#x27;\ge0,u&#x27;&#x27;\le0$，也就是喜歡更多且風險趨避的人。定義累積積分，括號上標代表積分階數，不是導數：</p>
+<div class="math">\[F^{[1]}(x)=F(x),\qquad F^{[2]}(x)=\int_a^x F(t)\,dt,\qquad D_2(x)=G^{[2]}(x)-F^{[2]}(x).\]</div>
+<p class="plain">對上一節的效用差再分部積分，並用 $D_2(a)=0$：</p>
+<div class="math">\[\Delta_u=u&#x27;(b)D_2(b)+\int_a^b[-u&#x27;&#x27;(x)]D_2(x)\,dx.\]</div>
+<p class="plain">兩個權重皆非負，因此 $D_2(x)\ge0$ 對所有 $x$ 足以保證效用差非負。必要性可用遞增凹函數 $u_t(x)=\min(x,t)$ 檢查：它把超過門檻的收益封頂，仍保留低於門檻的差異，效用差正是 $D_2(t)$。故：</p>
+<div class="math">\[X_F\succeq_2X_G\iff F^{[2]}(x)\le G^{[2]}(x)\quad\text{對所有 }x.\]</div>
+<p class="plain">這是<strong>二階隨機優越</strong>（Second-order stochastic dominance, SSD）。一階要求 CDF 處處較低，二階允許 CDF 交叉，但從最左端累積的不利面積不能較大。即：風險趨避者會把低結果的機率與低到什麼程度一起衡量。</p>
+<h3>與缺口及平均數的連結</h3>
+<p class="plain">再把 CDF 積分改寫成密度積分：</p>
+<div class="math">\[F^{[2]}(t)=\int_a^t(t-x)f(x)\,dx=E[(t-X_F)_+],\qquad (z)_+=\max(z,0).\]</div>
+<p class="plain">$t-X$ 是低於門檻時還差多少，正部函數使高於門檻的結果計為零。SSD 因而等價於每個門檻的期望缺口都較小。取 $t=b$ 時：</p>
+<div class="math">\[F^{[2]}(b)=b-E[X_F],\qquad D_2(b)=E[X_F]-E[X_G].\]</div>
+<p class="plain">因此 SSD 必定使平均數不較低。FSD 又必定推出 SSD，因為逐點非負的 CDF 差積分後仍非負。<strong>即：所有喜歡更多的人都同意的排序，當然也包含其中怕風險的那一群。</strong></p>
+<h3>補充推導：缺口、CDF 面積與必要性之間的連結</h3>
+<p class="plain">為什麼 $H_X(t)=E[(t-X)_+]$ 等於 CDF 下方的面積？固定一個結果 $x$，其缺口可寫成 $\int_a^t\mathbf1_{\{x\le z\}}dz$。若 $x&gt;t$，整段都是零。若 $x\le t$，從 $x$ 到 $t$ 都等於一，積分剛好是 $t-x$。再對隨機的 $X$ 取期望並交換非負積分與期望：</p>
+<div class="math">\[H_X(t)=\int_a^t E[\mathbf1_{\{X\le z\}}]dz=\int_a^t F_X(z)dz.\]</div>
+<p class="plain">因此第二次累積並不是純粹為了湊出二階導數，而是把「低於門檻的機率」換成「平均低於多少」。只計機率的 FSD 很強，SSD 則容許部分門檻的機率較差，只要累積的缺口仍較小。<strong>即：跌破門檻的機率與跌破後的距離，會一起決定平均短缺。</strong></p>
+<p class="plain">必要性的測試效用可選 $u_t(x)=\min(x,t)=t-(t-x)_+$。它在 $t$ 以下斜率為一，以上斜率為零，是遞增且凹的函數。因此如果所有風險趨避者都較喜歡 F，就必須有 $t-H_F(t)\ge t-H_G(t)$，也就是每個門檻的缺口都不能較大。它在轉折點不可微，但可用光滑凹函數近似，或直接採允許凹而非處處可微的效用類。<strong>即：只要找到一個門檻讓平均缺口更大，就已找到一種怕風險的偏好會反對這個排序。</strong></p></article><article id="s15" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>15｜SSD 與變異數：必要條件不是充分條件</h2><h3>★ 原稿作業的參考解答</h3>
+<p class="plain">題目一：若 $X_F\succeq_2X_G$，是否必有 $E[X_F]\ge E[X_G]$？是否必有 $\operatorname{Var}(X_F)\le\operatorname{Var}(X_G)$？</p>
+<p class="plain">參考解答：平均數是，變異數未必。令 $X_G=0$ 確定，$X_F$ 各半機率取 0 或 2。每個遞增效用都偏好 F，所以 FSD 與 SSD 都成立；但 F 的平均為 1、變異數為 1，G 的變異數為零。</p>
+<p class="plain">解析：較高變異數可能來自只增加好結果。若不先控制平均，就把較高變異數解讀成較差方案，會忽略收益改善。<strong>即：多一個賺錢的機會也可能增加波動，卻沒有讓原本的結果變差。</strong></p>
+<p class="plain">題目二：平均數相同時，SSD 為何推出變異數較小？</p>
+<p class="plain">參考解答：將 $D_2(x)\ge0$ 再積分至 $b$，得到 $G^{[3]}(b)\ge F^{[3]}(b)$，其中：</p>
+<div class="math">\[F^{[3]}(b)=\frac12E[(b-X_F)^2]=\frac12\{b^2-2bE[X_F]+E[X_F^2]\}.\]</div>
+<p class="plain">兩方案平均相同時，前兩項抵銷，得到 $E[X_G^2]\ge E[X_F^2]$。再扣掉共同的平均數平方，得到 $\operatorname{Var}(X_G)\ge\operatorname{Var}(X_F)$。</p>
+<h3>易錯提醒與補充反例</h3>
+<p class="plain">反方向仍不成立。F 各半機率為負 1 或 1，平均零、變異數 1。G 以 90% 機率為負 0.5、10% 機率為 4.5，平均零、變異數 2.25。雖然 F 變異數較小，但在門檻負 0.75 時，F 的期望缺口為 0.125，G 為零，故 F 不 SSD G。<strong>即：平均相同時，變異數可以排除某些錯誤排序，卻不能單獨證明全部風險趨避者都會同意。</strong></p><p class="source-link">延伸電子文獻：<a href="https://elischolar.library.yale.edu/cowles-discussion-paper-series/508/" target="_blank" rel="noopener">Rothschild &amp; Stiglitz (1970)</a></p></article><article id="s16" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>16｜條件尾端平均與分位數積分</h2><h3>統整內容</h3>
+<p class="plain">除了固定金額門檻的累積缺口，也能固定最差的一段機率來比較。令：</p>
+<div class="math">\[L_X(\alpha)=\int_0^\alpha q_X(t)\,dt,\qquad \operatorname{CTM}_\alpha(X)=\frac1\alpha L_X(\alpha).\]</div>
+<p class="plain"><strong>條件尾端平均</strong>（Conditional tail mean）在連續分配下，就是最差 $\alpha$ 比例結果的平均。SSD 的另一個等價條件為：</p>
+<div class="math">\[X_F\succeq_2X_G\iff L_F(\alpha)\ge L_G(\alpha)\quad\text{對所有 }0&lt;\alpha\le1.\]</div>
+<p class="plain">原稿寫成密度形式 $\frac1\alpha\int_a^{q_X(\alpha)}xf(x)\,dx$。連續且尾端機率恰為 $\alpha$ 時兩式相同。離散分配在門檻可能有一整塊機率，應按需要只取其中一部分，使用分位數積分最穩妥。<strong>即：把最差的一群結果一起平均，比只看那一群的邊界更能反映尾端損失。</strong></p>
+<h3>補充說明</h3>
+<p class="plain">以損失為正方向時，常用 $\operatorname{ES}_{1-\alpha}(X)=-\operatorname{CTM}_\alpha(X)$，稱為<strong>預期短缺</strong>（Expected shortfall）。SSD 保證所有尾端水準的 ES 排序一致，但只查一個水準仍不足以證明 SSD。取 $\alpha=1$，分位數積分就是整體期望值，與上一節的平均數必要條件接起來。</p>
+<h3>補充推導：尾端平均與 SSD 為什麼等價</h3>
+<p class="plain">前一節用固定金額門檻 $t$ 比缺口，本節改用固定機率 $\alpha$ 比最差結果。兩者之間的轉換不是直接換符號，而要找出「恰好收進最差那一群結果」的門檻。令 $H_X(t)=E[(t-X)_+]$，考察 $\alpha t-H_X(t)$。在連續分配下對 $t$ 微分是 $\alpha-F_X(t)$：門檻太低時還沒有收足機率，往上移可提高此式。超過分位數後，扣掉的缺口增加得更快，此式反而下降。所以最大值在 $t=q_X(\alpha)$，得到：</p>
+<div class="math">\[L_X(\alpha)=\sup_t\{\alpha t-H_X(t)\}.\]</div>
+<p class="plain">在沒有門檻原子的情況，$H_X(q)=E[(q-X)\mathbf1_{X\le q}]=\alpha q-E[X\mathbf1_{X\le q}]$，移項後就是最差 $\alpha$ 比例的未除以機率的總額。離散分配若在 $q$ 處機率跳過 $\alpha$，只取該原子所需的部分，仍得到同一公式。<strong>即：調整金額門檻直到剛好納入指定比例，就把平均缺口換成了那一群結果的總額。</strong></p>
+<p class="plain">反方向也能重建。固定 $t$，對 $\alpha t-L_X(\alpha)$ 微分得到 $t-q_X(\alpha)$。當分位數低於 $t$ 時繼續納入結果，超過 $t$ 後停止，所以最大值是 $H_X(t)$：</p>
+<div class="math">\[H_X(t)=\sup_{0\le\alpha\le1}\{\alpha t-L_X(\alpha)\},\qquad L_X(0)=0.\]</div>
+<p class="plain">現在比較 F、G。若 $H_F(t)\le H_G(t)$ 對所有 $t$ 成立，第一個最大值公式中 F 扣掉的量較小，故 $L_F\ge L_G$。反之若所有 $L_F\ge L_G$，第二個最大值公式中 F 扣掉的量較大，故 $H_F\le H_G$。這便證明兩種條件完全等價。以上先在共同有界支持下說明，有限一階動差的情形可適當延伸。</p>
+<h3>補充算例：離散尾端為什麼要切開機率</h3>
+<p class="plain">設 $X$ 以 10% 機率等於負 10、20% 等於 0、70% 等於 5。要算最差 20%，先取全部 10% 的負 10，再從零結果的 20% 中只取 10%。於是 $L_X(0.2)=0.1(-10)+0.1(0)=-1$，尾端平均是 $-1/0.2=-5$。若直接算 $E[X\mid X\le0]$，分母變成 0.3，得到 $-10/3$，其實算的是最差 30%。<strong>即：指定最差兩成時，碰到一群同樣的結果，只需取足兩成所需的那一部分。</strong></p></article><article id="s17" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>17｜高階隨機優越與邊界條件</h2><h3>統整內容與補充推導</h3>
+<p class="plain">依原稿的共同有界區間 $[a,b]$，重複積分定義為：</p>
+<div class="math">\[F^{[n]}(x)=\frac1{(n-1)!}\int_a^x(x-t)^{n-1}f(t)\,dt\quad(n\ge1).\]</div>
+<p class="plain">當 $n=1$，冪次為零，是普通 CDF。當 $n=2$，是期望缺口；當 $n=3$，是缺口平方期望的一半。每積分一次，距離的次方提高，而階乘避免重複計算係數。</p>
+<p class="plain">原稿旁註的 <strong>Leibniz 微分法則</strong>（Leibniz integral rule）說明如何核對：</p>
+<div class="math">\[\frac{d}{dx}\int_{a(x)}^{b(x)}k(x,t)\,dt=\int_{a(x)}^{b(x)}\frac{\partial k}{\partial x}(x,t)\,dt+k(x,b(x))b&#x27;(x)-k(x,a(x))a&#x27;(x).\]</div>
+<p class="plain">對上述積分，微分後便回到前一階。<strong>即：積分界線會動時，除了函數本身變動，還要算新增或移除的那一小段。</strong></p>
+<p class="plain">對交替符號的效用類 $(-1)^{k+1}u^{(k)}\ge0$、$k=1,\ldots,n$，第 $n$ 階優越的條件為：</p>
+<div class="math">\[G^{[n]}(x)\ge F^{[n]}(x)\ \text{對所有 }x,\qquad G^{[k]}(b)\ge F^{[k]}(b),\ k=2,\ldots,n-1.\]</div>
+<p class="plain">例如三階需要整條三重積分不等式，還需要 $G^{[2]}(b)\ge F^{[2]}(b)$，即平均數條件。反覆分部積分時，效用差為：</p>
+<div class="math">\[\Delta_u=\sum_{k=1}^{n-1}(-1)^{k+1}u^{(k)}(b)D_{k+1}(b)+(-1)^{n+1}\int_a^b u^{(n)}(x)D_n(x)\,dx,\]</div>
+<p class="plain">其中 $D_j=G^{[j]}-F^{[j]}$。邊界項正是不能漏掉的額外條件。<strong>即：多積分幾次不會讓端點自動消失，每個留在端點的項都要有正確符號。</strong></p>
+<h3>易錯提醒</h3>
+<p class="plain">三階隨機優越涉及遞增、凹、三階導數非負的效用類，不能簡化成「偏態比較大就較好」。無界支持時也不能直接代入有限的 $b$，要另外確認積分與邊界極限。</p>
+<h3>補充推導：從二階走到三階，端點如何留下來</h3>
+<p class="plain">令 $D_1=G-F$、$D_2(x)=\int_a^xD_1(t)dt$、$D_3(x)=\int_a^xD_2(t)dt$。從 FSD 的效用差開始，依次把未知符號的低階累積差移到高一階：</p>
+<div class="math">\[\Delta_u=\int_a^bu&#x27;D_1\,dx=u&#x27;(b)D_2(b)-\int_a^bu&#x27;&#x27;D_2\,dx.\]</div>
+<p class="plain">其中 $D_2(a)=0$。若還不能保證整條 $D_2$ 非負，就再分部積分一次：</p>
+<div class="math">\[\Delta_u=u&#x27;(b)D_2(b)-u&#x27;&#x27;(b)D_3(b)+\int_a^bu&#x27;&#x27;&#x27;(x)D_3(x)\,dx.\]</div>
+<p class="plain">三階效用類有 $u&#x27;\ge0,u&#x27;&#x27;\le0,u&#x27;&#x27;&#x27;\ge0$。所以整條 $D_3\ge0$ 控制最後兩項，仍需另保證 $D_2(b)\ge0$ 來控制第一項。由 $F^{[2]}(b)=E[b-X_F]$，得到 $D_2(b)=E[X_F]-E[X_G]$。這就是三階條件仍要檢查平均數的原因。<strong>即：把中間的累積差再積一次，可以放寬中間曲線的要求，但平均收益的比較仍留在終點。</strong></p>
+<p class="plain">一般第 $n$ 階條件的必要性也有對應測試函數。用 $u_t(x)=-(t-x)_+^{n-1}/(n-1)!$ 測試整條 $D_n(t)$，用 $u_k(x)=-(b-x)^{k-1}/(k-1)!$、$2\le k&lt;n$ 測試各端點 $D_k(b)$。這些函數的非零導數依序正負交替，期望效用差分別就是該累積差。轉折處採廣義導數或光滑近似。因此任一條件若失敗，就能構造相應的效用反例。</p>
+<h3>補充辨析：高階優越與「只增加第幾階風險」</h3>
+<p class="plain">隨機優越允許平均與較低階動差一起改善。「增加第 $n$ 階風險」常另外要求前 $n-1$ 階動差相等，以隔離新增風險本身。例如均值保持擴散先固定平均，再比較二階風險。高階端點累積量等於 $E[(b-X)^{k-1}]/(k-1)!$，展開二項式後可看到它由前 $k-1$ 階動差組成。低階動差相等才會讓相應端點差消失。<strong>即：若要說差別只來自更高一層的風險，就得先把前面幾層的差別固定住。</strong></p></article><article id="s18" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>18｜風險配置定理與近乎隨機優越</h2><h3>原稿延伸與補充說明</h3>
+<p class="plain">令 $X_g\succeq_NX_b$、$Y_g\succeq_MY_b$，下標代表較好與較差的分配，並假設這四個有界隨機變數相互獨立。Eeckhoudt、Schlesinger 與 Tsetlin 的風險配置結果比較兩個各半機率的彩票：</p>
+<div class="math">\[A=[X_g+Y_b,\ X_b+Y_g],\qquad B=[X_g+Y_g,\ X_b+Y_b].\]</div>
+<p class="plain">A 把一個較好與一個較差配在一起，B 把兩個較差集中於同一狀態。其結論是 A 在第 $N+M$ 階優越於 B。原稿的固定損失、預防性、節制性例子，可分別理解為一階加一階、一階加二階、二階加二階的配置。</p>
+<p class="plain">在獨立且有密度的情況，兩案期望效用差可寫為：</p>
+<div class="math">\[E[u(A)]-E[u(B)]=\frac12\iint u(x+y)[f_g(x)-f_b(x)][h_b(y)-h_g(y)]\,dx\,dy.\]</div>
+<p class="plain">原稿寫到雙重積分。以下依論文的證明思路補足推導，以效用函數的導數符號說明為何階數相加。這一段是文獻補充，不是錄音逐字內容。</p>
+<h3>補充推導：把雙重比較縮成一次比較</h3>
+<p class="plain">令 $U_j$ 表示前 $j$ 階導數正負交替的效用類。任取 $u\in U_{N+M}$，定義 $v(w)=E[u(w+Y_b)]-E[u(w+Y_g)]$，代表把 Y 從好分配換成壞分配的效用變化。獨立性讓同一個 $v$ 可以在任何 X 結果上使用，無須隨 X 改換 Y 的條件分配。展開兩張彩票即得 $2(E[u(A)]-E[u(B)])=E[v(X_g)]-E[v(X_b)]$。</p>
+<p class="plain">要使用已知的 $X_g\succeq_NX_b$，剩下只需驗證 $v\in U_N$。對 $1\le k\le N$，把 $(-1)^ku^{(k)}(w+y)$ 當作 y 的函數。其前 M 階導數符號仍正負交替，因此 Y 的 M 階優越給出：</p>
+<div class="math">\[(-1)^k\{E[u^{(k)}(w+Y_g)]-E[u^{(k)}(w+Y_b)]\}\ge0\quad\Longleftrightarrow\quad(-1)^{k+1}v^{(k)}(w)\ge0.\]</div>
+<p class="plain">於是 $v\in U_N$，X 的優越便保證右側期望差非負，完成證明。每一階微分都消耗 u 的一階符號限制，先供 Y 使用 M 階，再供 X 使用 N 階，這就是 N 加 M 的來源。<strong>即：先確認一種不利變化如何隨財富改變，再用另一種分配的優越性比較，兩層條件就接了起來。</strong></p>
+<h3>近乎隨機優越的原稿例子</h3>
+<p class="plain"><strong>近乎隨機優越</strong>（Almost stochastic dominance, ASD）限制極端效用函數，容許少量傳統優越條件的違反。原稿 A 為 99% 機率獲得一百萬、1% 機率損失 1，B 為確定得到 0。A 的 CDF 在負 1 到 0 之間較高，在 0 到一百萬之間較低，因此沒有 FSD。</p>
+<p class="plain">令 $A_-=\int(F-G)_+\,dx$ 為不利面積，$A_+=\int(G-F)_+\,dx$ 為有利面積。此例有 $A_-=0.01$、$A_+=990000$。原稿的面積比為：</p>
+<div class="math">\[\frac{A_-}{A_-+A_+}=\frac{0.01}{990000.01}\approx1.01\times10^{-8}.\]</div>
+<p class="plain">這個比率很小，但由此宣稱「所有人都偏好 A」仍不成立。補充推導：若效用斜率介於 $m$ 與 $M$，則效用差至少為 $mA_+-MA_-$。要求它非負，等價於面積比不超過 $\frac{m}{m+M}$，因此容許程度必須與效用類限制一起定義。<strong>即：小幅違反能否接受，取決於是否容許有人對那一小段損失極度敏感。</strong></p>
+<h3>分數階延伸</h3>
+<p class="plain"><strong>分數階隨機優越</strong>（Fractional degree stochastic dominance）研究整數階之間的偏好類與分配條件。它與 ASD 都是在細化傳統排序，但定義不同。閱讀清單中 Huang、Tzeng、Zhao 的正式論文為 2020 年，原稿僅點名主題，沒有寫出可完整重建的分數階判定式。</p><p class="source-link">延伸電子文獻：<a href="https://dhenriet.perso.centrale-med.fr/assurance1/Eeckhoudt.pdf" target="_blank" rel="noopener">Eeckhoudt, Schlesinger &amp; Tsetlin (2009)</a> · <a href="https://pubsonline.informs.org/doi/10.1287/mnsc.48.8.1074.169" target="_blank" rel="noopener">Leshno &amp; Levy (2002)</a> · <a href="https://pubsonline.informs.org/doi/10.1287/mnsc.2019.3406" target="_blank" rel="noopener">Huang, Tzeng &amp; Zhao (2020)</a></p></article><article id="s19" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>19｜Aumann–Serrano：從接受門檻定義風險</h2><h3>統整內容與補充推導</h3>
+<p class="plain">先令賭局 $X$ 具有有限個結果，$E[X]&gt;0$，且 $\Pr(X&lt;0)&gt;0$。正平均表示有接受的誘因，可能虧損則使風險趨避程度會影響接受與否。取 CARA 效用 $u(w)=-e^{-cw}$，其中 $c&gt;0$。</p>
+<p class="plain">接受與拒絕恰好無差異時：</p>
+<div class="math">\[-e^{-cw}E[e^{-cX}]=-e^{-cw}\quad\Longrightarrow\quad E[e^{-cX}]=1.\]</div>
+<p class="plain"><strong>Aumann–Serrano 風險指數</strong>（Aumann–Serrano index of riskiness）定義為臨界係數的倒數：</p>
+<div class="math">\[\mathcal R_{AS}(X)=\frac1{c^*},\qquad E\!\left[e^{-\frac{X}{\mathcal R_{AS}(X)}}\right]=1.\]</div>
+<p class="plain">注意接受不等式：兩邊除以負的 $-e^{-cw}$，方向要翻轉。接受條件為 $E[e^{-cX}]\le1$，因此 $c\le c^*$，等價於風險容忍度 $\frac1c\ge\mathcal R_{AS}(X)$。<strong>即：只有夠能承受風險的人才願意接受，所需承受能力越高，指數越大。</strong></p>
+<h3>★ 原稿要求的參考解答：存在與唯一性證明</h3>
+<p class="plain">設 $h(c)=E[e^{-cX}]-1$。有 $h(0)=0$、$h&#x27;(0)=-E[X]&lt;0$，且 $h&#x27;&#x27;(c)=E[X^2e^{-cX}]&gt;0$。所以函數一開始往下且嚴格凸。有限賭局至少有一個負結果，其指數項在 $c\to\infty$ 時發散，故 $h(c)\to\infty$。連續性保證再穿越零一次，嚴格凸性保證只穿越一次，得到唯一正根 $c^*$。</p>
+<p class="plain">解析：零點 $c=0$ 是風險中立的退化根，不是要找的正根。換成指數 $\mathcal R$ 後，它對應無限大的極限，不是第二個有限解。<strong>即：函數先下降再上升，真正的門檻是它回到原高度的那一次。</strong></p>
+<h3>易錯提醒</h3>
+<p class="plain">原稿寫 $\Pr(X\le0)&gt;0$，嚴格的負結果條件應為 $\Pr(X&lt;0)&gt;0$。只有零與正結果時，不會有上述有限正根。非有限賭局還需確認指數期望存在；不能只憑正平均就保證可解。</p><p class="source-link">延伸電子文獻：<a href="https://math.huji.ac.il/raumann/pdf/Economic%20Index%20of%20Riskiness.pdf" target="_blank" rel="noopener">Aumann &amp; Serrano (2008)</a></p></article><article id="s20" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>20｜常態風險指數、SSD 一致性與數值求解</h2><h3>補充推導：常態閉式解</h3>
+<p class="plain">若 $X\sim N(\mu,\sigma^2)$、$\mu&gt;0,\sigma&gt;0$，利用常態動差生成函數 $E[e^{tX}]=e^{\mu t+\frac12\sigma^2t^2}$，代入 $t=-\frac1{\mathcal R}$：</p>
+<div class="math">\[\exp\!\left(-\frac\mu{\mathcal R}+\frac{\sigma^2}{2\mathcal R^2}\right)=1.\]</div>
+<p class="plain">實數指數等於一時，其指數為零。乘以正的 $\mathcal R^2$ 得 $-\mu\mathcal R+\frac12\sigma^2=0$，所以：</p>
+<div class="math">\[\mathcal R_{AS}(X)=\frac{\sigma^2}{2\mu}.\]</div>
+<p class="plain">這是第一節三種風險量的第三個來源。它隨變異數增加而增加，隨平均報酬增加而下降。<strong>即：同樣的波動，有更高的平均收益補償，便比較容易接受。</strong></p>
+<h3>★ 原稿要求的參考解答：SSD 一致性證明</h3>
+<p class="plain">假設 F、G 都符合指數定義域，且 $X_F\succeq_2X_G$。令 $c_G=\frac1{\mathcal R_{AS}(X_G)}$。指數效用 $-e^{-c_Gx}$ 遞增且凹，故：</p>
+<div class="math">\[E[-e^{-c_GX_F}]\ge E[-e^{-c_GX_G}]=-1.\]</div>
+<p class="plain">移去負號後，$h_F(c_G)\le0$。由前節函數形狀，這表示 $c_G\le c_F$，取倒數得到 $\mathcal R_{AS}(X_F)\le\mathcal R_{AS}(X_G)$。嚴格優越在適當非退化條件下可得嚴格不等式。</p>
+<p class="plain">解析：所有風險趨避者都覺得 F 不較差，就包含那位對 G 恰好無差異的指數效用者，所以 F 不需要更高的風險容忍度。<strong>即：大家都認為比較好的方案，風險指數不應反而比較高。</strong></p>
+<h3>離散資料怎麼算</h3>
+<p class="plain">對觀測值 $x_i$ 與機率 $p_i$，求解 $\sum_i p_i e^{-cx_i}-1=0$ 的正根。實作時從很小的正數開始尋找負值，再逐步擴大上界直到函數為正，以二分法收斂；使用穩定的指數加總避免溢位。最後取 $\mathcal R=\frac1c$。原稿只有求根要求，這裡的演算法是補充說明。</p>
+<h3>補充推導：常態的指數期望為什麼是那個形式</h3>
+<p class="plain">常態密度與 $e^{tX}$ 相乘時，積分中的指數是 $tx-(x-\mu)^2/(2\sigma^2)$。把 x 的二次式配方：</p>
+<div class="math">\[tx-\frac{(x-\mu)^2}{2\sigma^2}=-\frac{(x-\mu-\sigma^2t)^2}{2\sigma^2}+\mu t+\frac12\sigma^2t^2.\]</div>
+<p class="plain">後面兩項與 x 無關，可移到積分外。剩下的積分是平均移到 $\mu+\sigma^2t$、變異數仍為 $\sigma^2$ 的完整常態密度，積分等於一。因此 $E[e^{tX}]=\exp(\mu t+\sigma^2t^2/2)$。閉式解依賴整個分配是常態，而非只依賴知道平均與變異數。<strong>即：配方把看似複雜的積分，變成一個總機率等於一的分配，再乘上可直接算的常數。</strong></p>
+<h3>補充算例：從正根到指數，逐步驗算</h3>
+<p class="plain">設 X 各半機率賺 2 元或賠 1 元，平均為 0.5 元。門檻方程為 $(e^{-2c}+e^c)/2=1$。令 $y=e^c$，正根要求 $y&gt;1$，乘以 $2y^2$ 後得：</p>
+<div class="math">\[1+y^3=2y^2\quad\Longleftrightarrow\quad(y-1)(y^2-y-1)=0.\]</div>
+<p class="plain">$y=1$ 對應被排除的 $c=0$。二次式唯一大於一的根為 $(1+\sqrt5)/2$，故 $c^*=\ln((1+\sqrt5)/2)$，指數約 2.078 元。這裡的變異數是 2.25，若誤套常態公式會得到 2.25 元，與精確值不同。<strong>即：先依實際可能結果建立方程，才能知道用常態近似會差多少。</strong></p><p class="source-link">延伸電子文獻：<a href="https://math.huji.ac.il/raumann/pdf/Economic%20Index%20of%20Riskiness.pdf" target="_blank" rel="noopener">Aumann &amp; Serrano (2008)</a></p></article><article id="s21" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>21｜Foster–Hart 與一般化風險量</h2><h3>統整內容與補充推導</h3>
+<p class="plain"><strong>Foster–Hart 風險量</strong>（Foster–Hart measure of riskiness）把問題改成「需要多少初始財富才願意接受」。先限有限賭局、正平均、可能虧損，最大損失為 $L=-\min X&gt;0$。對數效用要求 $w&gt;L$，無差異條件為：</p>
+<div class="math">\[E[\ln(w+X)]=\ln w\quad\Longleftrightarrow\quad E\!\left[\ln\left(1+\frac Xw\right)\right]=0.\]</div>
+<p class="plain">以臨界財富 $w^*$ 作為 $\mathcal R_{FH}$。為證明唯一性，令 $t=\frac1w$ 且 $0&lt;t&lt;\frac1L$，定義 $k(t)=E[\ln(1+tX)]$。有 $k(0)=0$、$k&#x27;(0)=E[X]&gt;0$、$k&#x27;&#x27;(t)=-E[\frac{X^2}{(1+tX)^2}]&lt;0$。當 $t\uparrow\frac1L$，最大損失有正機率，使對數期望趨向負無限。因此存在唯一正根，財富高於門檻時接受，低於門檻時拒絕。<strong>即：同一筆賭局對有較多家底的人比較承受得起。</strong></p>
+<h3>兩種門檻的差別</h3>
+<p class="plain">AS 固定賭局、尋找臨界的絕對風險趨避程度，初始財富會被消去。FH 則固定對數偏好、尋找臨界財富。兩者都以賭局決定數值，但來源與定義域不同。原稿把對數寫成 CARA，應修正為 CRRA，且相對風險趨避係數為一。</p>
+<p class="plain">原稿另以 CRRA 效用 $u_\gamma(w)=\frac{w^{1-\gamma}}{1-\gamma}$、$\gamma&gt;1$ 引介 Bali、Cakici 與 Chabi-Yo 的一般化方向。給定 $\gamma$ 時，求解：</p>
+<div class="math">\[E\!\left[\frac{(w+X)^{1-\gamma}}{1-\gamma}\right]=\frac{w^{1-\gamma}}{1-\gamma},\qquad w&gt;L.\]</div>
+<p class="plain">此式是原稿的臨界財富表達；不同論文的風險量正規化須依原文定義，不能把所有臨界財富一律當成 AS 的同一數值。正規化冪次效用在 $\gamma\to1$ 時接回對數條件。</p>
+<h3>易錯提醒</h3>
+<p class="plain">常態賭局沒有有限最大損失，所以不存在一個有限 $w$ 能保證 $w+X&gt;0$。前一節可用常態算 AS，並不表示可把同一常態直接塞進 FH 的對數式。一般連續分配的 FH 存在問題也比有限賭局複雜。</p>
+<h3>補充推導：為什麼要換成財富的倒數</h3>
+<p class="plain">直接對 $E[\ln(1+X/w)]$ 微分，正負結果的影響會混在一起，函數對 w 也不是全域單調。改用 $t=1/w$，t 就表示賭局相對家底的大小。其一階導數為 $k&#x27;(t)=E[X/(1+tX)]$，再微分一次得到前面的負平方項，立刻知道整條曲線嚴格凹。曲線在零附近向上，但靠近破產邊界向負無限下降，只能再穿越零一次。正根之前 $k(t)&gt;0$，所以接受條件是 $t\le t^*$。倒數使方向翻轉，變成 $w\ge1/t^*$。<strong>即：家底越大，這筆賭局占家底的比重越小，就越可能落在願意接受的範圍。</strong></p>
+<p class="plain">沿用各半機率賺 2 元或賠 1 元的例子，先要求 $w&gt;1$。無差異式兩邊乘二，再把對數合併：</p>
+<div class="math">\[\ln(1+2/w)+\ln(1-1/w)=0\quad\Longleftrightarrow\quad(1+2/w)(1-1/w)=1.\]</div>
+<p class="plain">展開為 $1+1/w-2/w^2=1$，乘以正的 $w^2$ 得 $w-2=0$，所以 $\mathcal R_{FH}=2$ 元。財富為 2 元時，兩結果的期末財富是 4 與 1，幾何平均是 2，對數期望剛好等於初始對數財富。此例兩個指數數值不同，來源是門檻偏好不同，並不是計算錯誤。</p>
+<h3>補充推導：冪次效用如何接回對數</h3>
+<p class="plain">令 $a=1-\gamma$。把正規化冪次效用寫成 $(w^a-1)/a=(e^{a\ln w}-1)/a$，由 $e^z=1+z+o(z)$，在 $a\to0$ 時趨近 $\ln w$。在有限結果且終值皆正的情況，可逐項取極限，所以臨界財富的無差異方程會接回對數方程。比較接受與否時若 $\gamma&gt;1$，分母 $1-\gamma$ 為負，移除這個分母要翻轉不等號。<strong>即：對數是這一族效用在特定參數下的連續極限，寫成同一族有助於看清假設如何改變。</strong></p><p class="source-link">延伸電子文獻：<a href="https://math.huji.ac.il/~hart/papers/risk090512.pdf" target="_blank" rel="noopener">Foster &amp; Hart (2009)</a> · <a href="https://pubsonline.informs.org/doi/10.1287/mnsc.1110.1373" target="_blank" rel="noopener">Bali, Cakici &amp; Chabi-Yo (2011)</a></p></article><article id="s22" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>22｜★ 分散風險作業與避險比率</h2><h3>題目與參考解答：標準差</h3>
+<p class="plain">題目：證明各半配置的標準差，不超過個別標準差的平均。</p>
+<p class="plain">由共變異數的 Cauchy–Schwarz 不等式，$\operatorname{Cov}(X,Y)\le\sigma_X\sigma_Y$，所以：</p>
+<div class="math">\[\operatorname{Var}\!\left(\frac{X+Y}{2}\right)=\frac{\sigma_X^2}{4}+\frac{\sigma_Y^2}{4}+\frac{\operatorname{Cov}(X,Y)}2\le\left(\frac{\sigma_X+\sigma_Y}{2}\right)^2.\]</div>
+<p class="plain">兩邊非負，開根號得到所求。解析：兩個結果沒有完全同方向移動時，部分偏離會互相抵銷。<strong>即：兩項投資一起波動得不完全相同，就有降低整體波動的空間。</strong></p>
+<h3>題目與參考解答：變異數除以兩倍平均數</h3>
+<p class="plain">原稿問，在正平均下，比較混合方案的比值與兩個比值的平均。令 $\mu_X,\mu_Y&gt;0$、$Z=\frac{X+Y}{2}$，則：</p>
+<div class="math">\[\frac{\operatorname{Var}(Z)}{2E[Z]}\le\frac{(\sigma_X+\sigma_Y)^2}{4(\mu_X+\mu_Y)}\le\frac14\left(\frac{\sigma_X^2}{\mu_X}+\frac{\sigma_Y^2}{\mu_Y}\right).\]</div>
+<p class="plain">第二步用加權 Cauchy–Schwarz：$(\sigma_X+\sigma_Y)^2\le(\mu_X+\mu_Y)(\frac{\sigma_X^2}{\mu_X}+\frac{\sigma_Y^2}{\mu_Y})$。最右邊正是兩個原比值的各半加權平均。</p>
+<p class="warning">易錯提醒：這個比值不等式只需要正平均與有限變異數。要把每個比值都稱為精確 AS 指數，還需混合後仍常態，例如 $X,Y$ 聯合常態；各自邊際常態不夠。</p>
+<h3>避險與投資組合</h3>
+<p class="plain">原稿先以現貨多頭配期貨空頭：$H_\alpha=R_s-\alpha R_f$。此處 $R_f$ 的下標指期貨，不是前文無風險利率。最小變異數目標展開為：</p>
+<div class="math">\[V(\alpha)=\sigma_s^2+\alpha^2\sigma_f^2-2\alpha\operatorname{Cov}(R_s,R_f),\qquad \alpha_{MV}^*=\frac{\operatorname{Cov}(R_s,R_f)}{\sigma_f^2}.\]</div>
+<p class="plain">對 $\alpha$ 微分設零即可求得，前提是 $\sigma_f^2&gt;0$。若改成最小化 $\mathcal R_{AS}(H_\alpha)$，避險同時會影響平均與波動，需在指數有定義的可行集合內求解，最適比率一般不再相同。<strong>即：把波動壓到最低，與讓整筆投資最值得承擔，是兩個不同的目標。</strong></p>
+<p class="plain">Markowitz 的多資產版本為 $E[R_p]=\sum_iw_i\mu_i$、$\operatorname{Var}(R_p)=\sum_i\sum_jw_iw_j\sigma_{ij}$。給定目標平均 $k$ 時，最小化此變異數，並滿足 $\sum_iw_i\mu_i=k$ 與 $\sum_iw_i=1$；是否禁止放空另列限制。原稿提及市值加權與等權重，兩者會改變估計的投資組合分配，報告時要交代清楚。</p>
+<h3>補充推導：兩次 Cauchy–Schwarz 各在控制什麼</h3>
+<p class="plain">第一次針對隨機變數 $X-E[X]$ 與 $Y-E[Y]$，控制兩個偏離平均的數相乘後能有多大的期望，因此限制共變異數。第二次則是普通向量的內積：選 $a=(\sqrt{\mu_X},\sqrt{\mu_Y})$、$b=(\sigma_X/\sqrt{\mu_X},\sigma_Y/\sqrt{\mu_Y})$，就有 $a\cdot b=\sigma_X+\sigma_Y$。套用 $(a\cdot b)^2\le(a\cdot a)(b\cdot b)$，正好得到正文所用的加權不等式。<strong>即：先限制兩項投資能一起晃動到什麼程度，再把各自的收益補償放回分母比較。</strong></p>
+<p class="plain">最小變異數避險比率也可由配方看出。記 $c=\operatorname{Cov}(R_s,R_f)$，則：</p>
+<div class="math">\[V(\alpha)=\sigma_f^2\left(\alpha-\frac c{\sigma_f^2}\right)^2+\sigma_s^2-\frac{c^2}{\sigma_f^2}.\]</div>
+<p class="plain">最後兩項與決策無關，第一項是非負平方，令它為零就取得最小值。若以報酬率估計，這是兩個報酬的暴險比例，實際期貨口數還要依現貨市值、期貨價格與合約乘數換算。若禁止負避險或有上限，則把無限制解投影到可行區間。</p>
+<p class="plain">若假設各避險組合常態且平均 $m(\alpha)=\mu_s-\alpha\mu_f&gt;0$，最小化 AS 等於最小化 $V(\alpha)/(2m(\alpha))$。商數微分給內部一階條件：</p>
+<div class="math">\[V&#x27;(\alpha)m(\alpha)-V(\alpha)m&#x27;(\alpha)=0\quad\Longleftrightarrow\quad2(\alpha\sigma_f^2-c)(\mu_s-\alpha\mu_f)+\mu_fV(\alpha)=0.\]</div>
+<p class="plain">若 $\mu_f=0$，第二項消失，才回到最小變異數解。否則減少波動可能也犧牲期望收益，需要一起權衡。一階條件只產生候選解，還要比較可行邊界與目標值。<strong>即：避險若同時改變預期能賺多少，單看波動的最低點就還沒完成決策。</strong></p><p class="source-link">延伸電子文獻：<a href="https://scholars.lib.ntu.edu.tw/entities/publication/9dacc3e3-c021-4d8d-97b4-417b8238d005" target="_blank" rel="noopener">Chen, Ho &amp; Tzeng (2014)</a></p></article><article id="s23" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>23｜選擇權：期望給付、價格與無套利界限</h2><h3>統整內容</h3>
+<p class="plain">履約價 $K$、到期股價 $S_T$ 的歐式賣權給付為 $(K-S_T)_+$。若真實世界的密度為 $f_P$，其期望給付為：</p>
+<div class="math">\[E_P[(K-S_T)_+]=\int_0^K(K-s)f_P(s)\,ds.\]</div>
+<p class="plain">這與 SSD 的門檻缺口是同一個數學形狀：門檻換成履約價，缺口換成賣權給付。但真實世界的期望給付還不是今天的價格。風險中立評價改用風險中立機率 $Q$，並以無風險利率折現：</p>
+<div class="math">\[P_0=e^{-rT}E_Q[(K-S_T)_+],\qquad C_0=e^{-rT}E_Q[(S_T-K)_+].\]</div>
+<p class="takeaway"><strong>即：算平均會拿到多少，與算今天應該付多少，用的機率與時間基準都要交代。</strong></p>
+<h3>風險中立的意思</h3>
+<p class="plain">風險中立效用 $u(x)=x$ 只比較期望值。在相同機會成本與計價基準下，若風險資產與無風險資產的期望報酬相同，風險中立者對兩者無差異。原稿將風險中立與無風險報酬並列的簡短旁註，應以這個期望值條件解讀，不能推成風險中立者必定偏好無風險資產。</p>
+<h3>原稿公式的補足</h3>
+<p class="plain">原稿寫出 Black–Scholes 買權式。對不配息股票、固定利率與波動率、標準連續交易模型：</p>
+<div class="math">\[C_0=S_0\Phi(d_1)-Ke^{-rT}\Phi(d_2),\qquad d_1=\frac{\ln\frac{S_0}{K}+(r+\frac12\sigma^2)T}{\sigma\sqrt T},\qquad d_2=d_1-\sigma\sqrt T.\]</div>
+<p class="plain">$\Phi$ 是標準常態 CDF。$\Phi(d_2)$ 是該模型下風險中立的到期價內機率；$\Phi(d_1)$ 在此模型也是買權的 Delta，不能把兩者都直接當成真實世界機率。</p>
+<h3>補充推導：先理解為什麼定價要換機率</h3>
+<p class="plain">一期間模型中，股票由 $S_0$ 變成 $S_u$ 或 $S_d$，無風險毛報酬為 $B=e^{rT}$，並假設 $S_d&lt;BS_0&lt;S_u$。任一衍生契約在兩狀態給付 $V_u,V_d$，用 $\Delta$ 股股票及今天存入的現金 b 複製它，需滿足 $\Delta S_u+bB=V_u$、$\Delta S_d+bB=V_d$。兩式相減可解 $\Delta=(V_u-V_d)/(S_u-S_d)$，再代回解 b。今天的複製成本 $\Delta S_0+b$ 整理為：</p>
+<div class="math">\[V_0=B^{-1}\{qV_u+(1-q)V_d\},\qquad q=\frac{BS_0-S_d}{S_u-S_d}.\]</div>
+<p class="plain">q 在零與一之間，由資產價格與可複製的給付決定，未使用真實的上漲機率。若同給付的契約比複製成本貴，可賣契約、買複製組合取得無風險差額，反之亦然，因此無套利要求價格相同。連續時間的風險中立評價延續這個邏輯，但需要相應的市場與交易假設。<strong>即：定價機率是讓現有價格彼此一致的權重，來自複製成本的約束。</strong></p>
+<h3>補充推導：Black–Scholes 的兩個常態機率如何出現</h3>
+<p class="plain">在該模型的風險中立分配下，寫 $S_T=S_0\exp((r-\sigma^2/2)T+\sigma\sqrt T Z)$，其中 $Z\sim N(0,1)$。這裡採用模型的對數常態終值作為起點。先解價內條件 $S_T&gt;K$，取對數並移項得到 $Z&gt;-d_2$。因此支付履約價的機率是 $\Phi(d_2)$。</p>
+<p class="plain">買權只在價內時收到股票價值並付 K，故把給付拆開：</p>
+<div class="math">\[C_0=e^{-rT}\{E_Q[S_T\mathbf1_{Z&gt;-d_2}]-K\Pr_Q(Z&gt;-d_2)\}.\]</div>
+<p class="plain">第二項已算出。第一項會以股票終值加權各狀態，不能用 $E_Q[S_T]$ 直接乘價內機率，因為股票終值與是否價內相關。令 $a=\sigma\sqrt T$，將標準常態密度記為 $\varphi(z)$。配方得 $e^{az}\varphi(z)=e^{a^2/2}\varphi(z-a)$，所以：</p>
+<div class="math">\[E_Q[S_T\mathbf1_{Z&gt;-d_2}]=S_0e^{(r-\sigma^2/2)T}e^{\sigma^2T/2}\int_{-d_2}^{\infty}\varphi(z-\sigma\sqrt T)dz=S_0e^{rT}\Phi(d_1).\]</div>
+<p class="plain">最後一個等號用 $d_1=d_2+\sigma\sqrt T$。代回折現式，第一項的 $e^{rT}$ 與折現因子抵銷，便得到正文的公式。這說明兩個常態項不同的原因：一個只計是否履約，另一個還按當時股票值多少加權。<strong>即：到期會不會拿到錢，以及拿到時有多少錢，是公式中分開計算的兩件事。</strong></p>
+<h3>逐狀態比較推出價格上下界</h3>
+<p class="plain">每個到期狀態都有 $0\le(S_T-K)_+\le S_T$，且 $(S_T-K)_+\ge S_T-K$。在可交易、無套利且無股利等條件下，同狀態較高的給付不能有較低價格，故：</p>
+<div class="math">\[\max\{0,S_0-Ke^{-rT}\}\le C_0\le S_0.\]</div>
+<p class="plain">這是逐狀態支配與無套利的結果。前文的 FSD 則只比較邊際分配，不能直接取代共同狀態與定價假設。<strong>即：每種情況都付得更多的契約，價格至少要一樣高。</strong></p>
+<figure><img src="assets/diagrams/option.svg" alt="買權與賣權在履約價兩側的到期給付"><figcaption>依原稿概念以向量圖重繪；示意圖，非實證資料。</figcaption></figure><p class="source-link">補充教材：<a href="https://www.columbia.edu/~mh2078/FoundationsFE/BlackScholes.pdf">Martin Haugh（Columbia University）：The Black-Scholes Model</a>。本文的二項複製與配方計算為教學展開。</p></article><article id="s24" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>24｜★ 折現時間作業與課程提示</h2><h3>題目</h3>
+<p class="plain">比較一元在 $t_1,t_2$ 各半機率收到的期望現值，與一元在平均時間 $\frac{t_1+t_2}{2}$ 確定收到的現值。原稿只列比較式，以下為參考解答。</p>
+<h3>參考解答</h3>
+<p class="plain">固定每期折現率 $r&gt;-1$，令 $d(t)=(1+r)^{-t}$。其二階導數為：</p>
+<div class="math">\[d&#x27;&#x27;(t)=[\ln(1+r)]^2(1+r)^{-t}\ge0.\]</div>
+<p class="plain">所以折現因子對時間是凸函數，由 Jensen 不等式：</p>
+<div class="math">\[\frac12\frac1{(1+r)^{t_1}}+\frac12\frac1{(1+r)^{t_2}}\ge\frac1{(1+r)^{\frac{t_1+t_2}{2}}}.\]</div>
+<h3>解析</h3>
+<p class="plain">比較的是線性現值法則下的金額，而非消費效用。提前收到帶來的現值增加，大於同樣時間延後帶來的現值減少。若 $r=0$ 或兩個時間相同則相等。<strong>即：平均收款時間相同，也不代表平均現值相同。</strong></p>
+<h3>易錯提醒</h3>
+<p class="plain">此式假設折現率固定、支付金額相同。若時間與利率或金額共同隨機，不能直接套用。它也沒有宣稱風險趨避者必定喜歡隨機收款。</p>
+<h3>原稿的考試與報告提示</h3>
+<p class="plain"><strong>原稿記載期中考與期末考各十題、約一小時，七至八題來自上課、作業與筆記，其餘為延伸。</strong> <strong>原稿另記期中考 11/2、期末考 12/21，但未註明年份，僅保留為原課程紀錄。</strong> 不能當成目前學期的最新通知。</p>
+<p class="plain">報告原稿記載 11/23、每組約二十分鐘，簡報約二十至三十頁，印出來裝訂；既有文獻介紹不超過五分鐘，重點放在自己的研究。另有 9/14 前選論文的舊提示。研究延伸可以換市場、更新資料期間或改變方法，但須理解方程式、數學與研究問題。這些日期同樣沒有年份。</p></article><article id="s25" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>25｜中英術語對照與符號索引</h2><div class="table-wrap"><table><tr><th>中文</th><th>英文</th><th>本筆記中的用途</th></tr><tr><td>風險趨避</td><td>Risk aversion</td><td>凹效用對同均值風險的態度</td></tr><tr><td>確定等值</td><td>Certainty equivalent</td><td>與風險方案相同效用的確定財富</td></tr><tr><td>風險溢酬</td><td>Risk premium</td><td>期望財富減確定等值</td></tr><tr><td>絕對風險趨避</td><td>Absolute risk aversion</td><td>固定金額尺度的偏好強度</td></tr><tr><td>相對風險趨避</td><td>Relative risk aversion</td><td>財富比例尺度的偏好強度</td></tr><tr><td>預防性</td><td>Prudence</td><td>與邊際效用凸性及預防儲蓄相關</td></tr><tr><td>節制性</td><td>Temperance</td><td>避免把獨立風險集中在同一狀態</td></tr><tr><td>預防性儲蓄</td><td>Precautionary saving</td><td>為未來不確定性增加的儲蓄</td></tr><tr><td>累積分配函數</td><td>Cumulative distribution function</td><td>結果不超過門檻的機率</td></tr><tr><td>一階／二階隨機優越</td><td>First-/second-order stochastic dominance</td><td>一整類偏好都同意的分配排序</td></tr><tr><td>均值保持擴散</td><td>Mean-preserving spread</td><td>平均不變而增加風險的分配變化</td></tr><tr><td>風險值</td><td>Value at Risk</td><td>指定尾端機率的損失門檻</td></tr><tr><td>條件尾端平均</td><td>Conditional tail mean</td><td>最差固定比例結果的平均</td></tr><tr><td>預期短缺</td><td>Expected shortfall</td><td>以損失方向表示的尾端平均</td></tr><tr><td>風險指數</td><td>Index of riskiness</td><td>以接受門檻衡量賭局風險</td></tr><tr><td>最適避險比率</td><td>Optimal hedge ratio</td><td>使指定風險目標最小的部位比例</td></tr><tr><td>風險中立評價</td><td>Risk-neutral valuation</td><td>以風險中立機率折現定價</td></tr><tr><td>近乎隨機優越</td><td>Almost stochastic dominance</td><td>限制極端偏好後容許少量違反</td></tr><tr><td>分數階隨機優越</td><td>Fractional degree stochastic dominance</td><td>整數階之間的排序延伸</td></tr></table></div>
+<p class="plain">本筆記用 $A$ 表示絕對風險趨避係數，$R_u$ 表示相對係數，$\mathcal R_{AS},\mathcal R_{FH}$ 表示賭局的風險量。$F^{[n]}$ 表示累積積分，$u^{(n)}$ 才表示導數。保險的損失機率用 $\pi$，保額用 $q$，單位保費用 $p$；風險溢酬所在單元的 $\pi$ 則另有定義。</p></article><article id="references" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>26｜電子文獻與書目校正</h2><p>六張閱讀清單共 69 筆，以下全數文字化。提供已定位的作者網站、學術典藏、工作論文及出版頁。工作論文可能與正式版不同；標示「待查全文」者僅依原清單轉錄，尚未逐篇查核內容與卷頁。電子來源查找日期：2026/10/26。</p><p>課堂主線可依序對照 Pratt（風險趨避）、Kimball（預防性）、Eeckhoudt 與 Schlesinger（風險配置）、Rothschild 與 Stiglitz（風險增加）、Aumann 與 Serrano、Foster 與 Hart（風險指數）。全文連結供延伸閱讀，不表示所有文獻內容都已授課或納入正文。</p><p>已確認的書目校正：Müller 等（2017）為 63(9):2933–2947；Huang、Tzeng 與 Zhao 的 Fractional Degree Stochastic Dominance 正式版為 2020 年 66(10):4630–4647；Post 與 Kopa（2017）文章頁碼為 3381–3392，原單上的 3147–3529 是整期頁碼。</p><p><a href="https://www.insead.edu/faculty-research/academic-areas/decision-sciences">Müller 等書目核對</a> · <a href="https://pubsonline.informs.org/doi/10.1287/mnsc.2019.3406">Huang 等出版頁</a> · <a href="https://pubsonline.informs.org/doi/10.1287/mnsc.2016.2506">Post 與 Kopa 出版頁</a></p></article><article id="ref1" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>閱讀清單｜風險偏好：理論</h2><div class="reference"><p><strong>Pratt (1964)</strong> · Risk Aversion in the Small and in the Large</p><p class="journal">Econometrica 32:122–136 · <a href="https://msuweb.montclair.edu/~lebelp/PrattRiskSmalllargeEC1964.pdf" target="_blank" rel="noopener">PDF・大學網站典藏</a></p></div><div class="reference"><p><strong>Kimball (1990)</strong> · Precautionary Saving in the Small and in the Large</p><p class="journal">Econometrica 58:53–73 · <a href="https://www.nber.org/papers/w2848.pdf" target="_blank" rel="noopener">PDF・1989 工作論文版本</a></p></div><div class="reference"><p><strong>Eeckhoudt &amp; Schlesinger (2006)</strong> · Putting Risk in Its Proper Place</p><p class="journal">American Economic Review 96:280–289 · <a href="https://www.econstor.eu/bitstream/10419/18826/1/cesifo1_wp1462.pdf" target="_blank" rel="noopener">PDF・2005 工作論文版本</a></p></div><div class="reference"><p><strong>Chiu (2005)</strong> · Skewness Preference, Risk Aversion, and the Precedence Relations on Stochastic Changes</p><p class="journal">Management Science 51(12):1816–1828 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Denuit &amp; Eeckhoudt (2010)</strong> · A General Index of Absolute Risk Attitude</p><p class="journal">Management Science 56(4):712–715 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Ross (1981)</strong> · Some Stronger Measures of Risk Aversion in the Small and in the Large with Applications</p><p class="journal">Econometrica:621–638 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Jindapon &amp; Neilson (2007)</strong> · Higher-order Generalizations of Arrow–Pratt and Ross Risk Aversion: A Comparative Statics Approach</p><p class="journal">Journal of Economic Theory 136(1):719–728 · <span class="pending">待查全文</span></p></div></article><article id="ref2" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>閱讀清單｜風險偏好：估計</h2><div class="reference"><p><strong>Holt &amp; Laury (2002)</strong> · Risk Aversion and Incentive Effects</p><p class="journal">American Economic Review 92(5):1644–1655 · <a href="https://www.aeaweb.org/articles?id=10.1257/000282802762024700" target="_blank" rel="noopener">出版頁・全文存取依網站權限</a></p></div><div class="reference"><p><strong>Cohen &amp; Einav (2007)</strong> · Estimating Risk Preferences from Deductible Choice</p><p class="journal">American Economic Review 97(3):745–788 · <a href="https://web.stanford.edu/~leinav/pubs/AER2007.pdf" target="_blank" rel="noopener">PDF・作者網站</a></p></div><div class="reference"><p><strong>Bliss &amp; Panigirtzoglou (2004)</strong> · Option-implied Risk Aversion Estimates</p><p class="journal">Journal of Finance 59(1):407–446 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Dynan (1993)</strong> · How Prudent Are Consumers?</p><p class="journal">Journal of Political Economy 101(6):1104–1113 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Deck &amp; Schlesinger (2010)</strong> · Exploring Higher Order Risk Effects</p><p class="journal">Review of Economic Studies 77(4):1403–1420 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Deck &amp; Schlesinger (2014)</strong> · Consistency of Higher Order Risk Preferences</p><p class="journal">Econometrica 82(5):1913–1943 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Ebert &amp; Wiesen (2011)</strong> · Testing for Prudence and Skewness Seeking</p><p class="journal">Management Science 57(7):1334–1349 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Noussair, Trautmann &amp; Van de Kuilen (2014)</strong> · Higher Order Risk Attitudes, Demographics, and Financial Decisions</p><p class="journal">Review of Economic Studies 81(1):325–355 · <span class="pending">待查全文</span></p></div></article><article id="ref3" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>閱讀清單｜風險衡量：傳統與延伸</h2><div class="reference"><p><strong>Rothschild &amp; Stiglitz (1970)</strong> · Increasing Risk: I. A Definition</p><p class="journal">Journal of Economic Theory 2(3):225–243 · <a href="https://elischolar.library.yale.edu/cowles-discussion-paper-series/508/" target="_blank" rel="noopener">機構典藏・1969 前身工作論文（合併題名）</a></p></div><div class="reference"><p><strong>Ekern (1980)</strong> · Increasing Nth Degree Risk</p><p class="journal">Economics Letters 6(4):329–333 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Whitmore (1970)</strong> · Third-degree Stochastic Dominance</p><p class="journal">American Economic Review 60:457–459 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Eeckhoudt, Schlesinger &amp; Tsetlin (2009)</strong> · Apportioning of Risks via Stochastic Dominance</p><p class="journal">Journal of Economic Theory 144:994–1003 · <a href="https://dhenriet.perso.centrale-med.fr/assurance1/Eeckhoudt.pdf" target="_blank" rel="noopener">PDF・文章預刊版本</a></p></div><div class="reference"><p><strong>Leshno &amp; Levy (2002)</strong> · Preferred by “All” and Preferred by “Most” Decision Makers: Almost Stochastic Dominance</p><p class="journal">Management Science 48(8):1074–1085 · <a href="https://pubsonline.informs.org/doi/10.1287/mnsc.48.8.1074.169" target="_blank" rel="noopener">出版頁・全文存取依網站權限</a></p></div><div class="reference"><p><strong>Tzeng, Huang &amp; Shih (2013)</strong> · Revisiting Almost Second-Degree Stochastic Dominance</p><p class="journal">Management Science 59(5):1250–1254 · <a href="https://warwick.ac.uk/fac/soc/wbs/subjects/bsci/events/summerschool2015/abstracts/mosche_leshno_relevant_papers_-_revisiting_almost_second-degree_stochastic_dominance.pdf" target="_blank" rel="noopener">PDF・大學教學網站</a></p></div><div class="reference"><p><strong>Tsetlin, Winkler, Huang &amp; Tzeng (2015)</strong> · Generalized Almost Stochastic Dominance</p><p class="journal">Operations Research 63(2):363–377 · <a href="https://sites.insead.edu/facultyresearch/research/doc.cfm?did=54161" target="_blank" rel="noopener">PDF・2014 工作論文，作者排序與正式版不同</a></p></div><div class="reference"><p><strong>Müller, Scarsini, Tsetlin &amp; Winkler (2017)</strong> · Between First- and Second-Order Stochastic Dominance</p><p class="journal">Management Science 63(9):2933–2947 · <a href="https://flora.insead.edu/fichiersti_wp/inseadwp2015/2015-55.pdf" target="_blank" rel="noopener">PDF・2015 工作論文；原清單頁碼誤植</a></p></div><div class="reference"><p><strong>Huang, Tzeng &amp; Zhao (2020)</strong> · Fractional Degree Stochastic Dominance</p><p class="journal">Management Science 66(10):4630–4647 · <a href="https://pubsonline.informs.org/doi/10.1287/mnsc.2019.3406" target="_blank" rel="noopener">出版頁；原清單年份與卷頁修正</a></p></div><div class="reference"><p><strong>Levy (2016)</strong> · Aging Population, Retirement, and Risk Taking</p><p class="journal">Management Science 62(5):1415–1430 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Huang, Tzeng, Wang &amp; Zhao (2020)</strong> · Comment on “Aging Population, Retirement, and Risk Taking”</p><p class="journal">Management Science 66(6):2792–2795 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Huang, Tzeng, Wang &amp; Zhao (2020)</strong> · Operational Asymptotic Stochastic Dominance</p><p class="journal">European Journal of Operational Research 280(1):312–322 · <span class="pending">待查全文</span></p></div></article><article id="ref4" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>閱讀清單｜風險指數</h2><div class="reference"><p><strong>Aumann &amp; Serrano (2008)</strong> · An Economic Index of Riskiness</p><p class="journal">Journal of Political Economy 116(5):810–836 · <a href="https://math.huji.ac.il/raumann/pdf/Economic%20Index%20of%20Riskiness.pdf" target="_blank" rel="noopener">PDF・作者網站</a></p></div><div class="reference"><p><strong>Foster &amp; Hart (2009)</strong> · An Operational Measure of Riskiness</p><p class="journal">Journal of Political Economy 117(5):785–814 · <a href="https://math.huji.ac.il/~hart/papers/risk090512.pdf" target="_blank" rel="noopener">PDF・作者手稿（2009/05/12）</a></p></div><div class="reference"><p><strong>Bali, Cakici &amp; Chabi-Yo (2011)</strong> · A Generalized Measure of Riskiness</p><p class="journal">Management Science 57(8):1406–1423 · <a href="https://pubsonline.informs.org/doi/10.1287/mnsc.1110.1373" target="_blank" rel="noopener">出版頁・全文存取依網站權限</a></p></div><div class="reference"><p><strong>Hart (2011)</strong> · Comparing Risks by Acceptance and Rejection</p><p class="journal">Journal of Political Economy 119(4):617–638 · <a href="https://math.huji.ac.il/~hart/papers/risk-u.pdf" target="_blank" rel="noopener">PDF・作者網站</a></p></div></article><article id="ref5" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>閱讀清單｜報酬與風險估計</h2><div class="reference"><p><strong>Bakshi &amp; Madan (2000)</strong> · Spanning and Derivative-security Valuation</p><p class="journal">Journal of Financial Economics 55(2):205–238 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Bakshi, Kapadia &amp; Madan (2003)</strong> · Stock Return Characteristics, Skew Laws, and the Differential Pricing of Individual Equity Options</p><p class="journal">Review of Financial Studies 16(1):101–143 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Bakshi &amp; Madan (2006)</strong> · A Theory of Volatility Spreads</p><p class="journal">Management Science 52(12):1945–1955 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Bollerslev (1986)</strong> · Generalized Autoregressive Conditional Heteroskedasticity</p><p class="journal">Journal of Econometrics 31(3):307–327 · <a href="https://www.eeri.eu/documents/wp/EERI_RP_1986_01.pdf" target="_blank" rel="noopener">PDF・研究機構網站</a></p></div><div class="reference"><p><strong>Bollerslev, Tauchen &amp; Zhou (2009)</strong> · Expected Stock Returns and Variance Risk Premia</p><p class="journal">Review of Financial Studies 22:4463–4492 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Carr &amp; Wu (2009)</strong> · Variance Risk Premia</p><p class="journal">Review of Financial Studies 22(3):1311–1341 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Engle (1982)</strong> · Autoregressive Conditional Heteroscedasticity with Estimates of the Variance of United Kingdom Inflation</p><p class="journal">Econometrica 50(4):987–1007 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Martin (2017)</strong> · What Is the Expected Return on the Market?</p><p class="journal">Quarterly Journal of Economics 132(1):367–433 · <a href="https://eprints.lse.ac.uk/67036/7/Martin_What%20is%20the%20expected%20return%20on%20the%20market_published_2017%20LSERO.pdf" target="_blank" rel="noopener">PDF・LSE 典藏正式版本</a></p></div></article><article id="ref6" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>閱讀清單｜風險指數的應用</h2><div class="reference"><p><strong>Anand, Li, Kurosaki &amp; Kim (2016)</strong> · Foster–Hart Optimal Portfolios</p><p class="journal">Journal of Banking &amp; Finance 68:117–130 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Bali, Cakici &amp; Chabi-Yo (2015)</strong> · A New Approach to Measuring Riskiness in the Equity Market: Implications for the Risk Premium</p><p class="journal">Journal of Banking &amp; Finance 57:101–117 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Chen, Ho &amp; Tzeng (2014)</strong> · Riskiness-minimizing Spot-futures Hedge Ratio</p><p class="journal">Journal of Banking &amp; Finance 40:154–164 · <a href="https://scholars.lib.ntu.edu.tw/entities/publication/9dacc3e3-c021-4d8d-97b4-417b8238d005" target="_blank" rel="noopener">臺大典藏書目；尚未取得全文</a></p></div><div class="reference"><p><strong>Homm &amp; Pigorsch (2012)</strong> · Beyond the Sharpe Ratio: An Application of the Aumann-Serrano Index to Performance Measurement</p><p class="journal">Journal of Banking &amp; Finance 36:2274–2284 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Kadan &amp; Liu (2014)</strong> · Performance Evaluation with High Moments and Disaster Risk</p><p class="journal">Journal of Financial Economics 113(1):131–155 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Kadan, Liu &amp; Liu (2016)</strong> · Generalized Systematic Risk</p><p class="journal">American Economic Journal: Microeconomics 8(2):86–127 · <span class="pending">待查全文</span></p></div></article><article id="ref7" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>閱讀清單｜績效比較</h2><div class="reference"><p><strong>Babalos, Mamatzakis &amp; Matousek (2015)</strong> · The Performance of US Equity Mutual Funds</p><p class="journal">Journal of Banking &amp; Finance 52:217–229 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Bali, Brown &amp; Demirtas (2013)</strong> · Do Hedge Funds Outperform Stocks and Bonds?</p><p class="journal">Management Science 59(8):1887–1903 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Denuit, Huang, Tzeng &amp; Wang (2014)</strong> · Almost Marginal Conditional Stochastic Dominance</p><p class="journal">Journal of Banking &amp; Finance 41:57–66 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Fong (2010)</strong> · A Stochastic Dominance Analysis of Yen Carry Trades</p><p class="journal">Journal of Banking &amp; Finance 34(6):1237–1246 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Annaert, Van Osselaer &amp; Verstraete (2009)</strong> · Performance Evaluation of Portfolio Insurance Strategies Using Stochastic Dominance Criteria</p><p class="journal">Journal of Banking &amp; Finance 33(2):272–280 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Abhyankar, Ho &amp; Zhao (2008)</strong> · Value versus Growth: Stochastic Dominance Criteria</p><p class="journal">Quantitative Finance 8(7):693–704 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Taylor (2014)</strong> · The Rise and Fall of Technical Trading Rule Success</p><p class="journal">Journal of Banking &amp; Finance 40:286–302 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Post &amp; Levy (2005)</strong> · Does Risk Seeking Drive Stock Prices? A Stochastic Dominance Analysis of Aggregate Investor Preferences and Beliefs</p><p class="journal">Review of Financial Studies 18(3):925–953 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Seyhun (1993)</strong> · Can Omitted Risk Factors Explain the January Effect? A Stochastic Dominance Approach</p><p class="journal">Journal of Financial and Quantitative Analysis:195–212 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Cho, Linton &amp; Whang (2007)</strong> · Are There Monday Effects in Stock Returns: A Stochastic Dominance Approach</p><p class="journal">Journal of Empirical Finance 14(5):736–755 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Gasbarro, Wong &amp; Zumwalt (2007)</strong> · Stochastic Dominance Analysis of iShares</p><p class="journal">European Journal of Finance 13(1):89–101 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Alkhazali &amp; Zoubi (2020)</strong> · Gold and Portfolio Diversification: A Stochastic Dominance Analysis of the Dow Jones Islamic Indices</p><p class="journal">Pacific-Basin Finance Journal 60:101264 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Daskalaki, Skiadopoulos &amp; Topaloglou (2017)</strong> · Diversification Benefits of Commodities: A Stochastic Dominance Efficiency Approach</p><p class="journal">Journal of Empirical Finance 44:250–269 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Abhyankar, Chen &amp; Ho (2006)</strong> · The Long-run Performance of Initial Public Offerings: Stochastic Dominance Criteria</p><p class="journal">Quarterly Review of Economics and Finance 46(4):620–637 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Fong, Lean &amp; Wong (2008)</strong> · Stochastic Dominance and Behavior towards Risk: The Market for Internet Stocks</p><p class="journal">Journal of Economic Behavior &amp; Organization 68(1):194–208 · <span class="pending">待查全文</span></p></div></article><article id="ref8" class="unit"><div class="unit-label">風險管理 / 整合筆記</div><h2>閱讀清單｜投資組合效率與選擇權界限</h2><div class="reference"><p><strong>Kopa &amp; Post (2009)</strong> · Portfolio Optimality Test Based on the First-order Stochastic Dominance Criterion</p><p class="journal">Journal of Financial and Quantitative Analysis 44:1103–1124 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Kuosmanen (2004)</strong> · Efficient Diversification According to Stochastic Dominance Criteria</p><p class="journal">Management Science 50:1390–1406 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Post (2003)</strong> · Empirical Tests for Stochastic Dominance Efficiency</p><p class="journal">Journal of Finance 58:1905–1931 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Post, Fang &amp; Kopa (2015)</strong> · Linear Tests for Decreasing Absolute Risk Aversion Stochastic Dominance</p><p class="journal">Management Science 61(7):1615–1629 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Post &amp; Kopa (2017)</strong> · Portfolio Choice Based on Third-Degree Stochastic Dominance</p><p class="journal">Management Science 63(10):3381–3392 · <a href="https://www.econstor.eu/bitstream/10419/166722/1/851379516.pdf" target="_blank" rel="noopener">PDF・2015 工作論文；原清單把整期頁碼當文章頁碼</a></p></div><div class="reference"><p><strong>Post &amp; Longarela (2020，依原清單)</strong> · Risk Arbitrage Opportunities for Stock Index Options</p><p class="journal">Operations Research · <span class="pending">待查全文與正式卷頁</span></p></div><div class="reference"><p><strong>Levy (1985)</strong> · Upper and Lower Bounds of Put and Call Option Value: Stochastic Dominance Approach</p><p class="journal">Journal of Finance 40(4):1197–1217 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Constantinides &amp; Perrakis (2002)</strong> · Stochastic Dominance Bounds on Derivatives Prices in a Multiperiod Economy with Proportional Transaction Costs</p><p class="journal">Journal of Economic Dynamics and Control 26(7–8):1323–1352 · <span class="pending">待查全文</span></p></div><div class="reference"><p><strong>Constantinides, Jackwerth &amp; Perrakis (2009)</strong> · Mispricing of S&amp;P 500 Index Options</p><p class="journal">Review of Financial Studies 22(3):1247–1277 · <span class="pending">待查全文</span></p></div></article></main><footer>風險管理整合筆記 · 公式與圖形可離線閱讀 · 參考論文連結需連線</footer></body></html>
