@@ -10,6 +10,7 @@ const standalone=/^(09|10|24)｜/.test(unit.querySelector('h2').textContent);
 if(standalone){let start=false;for(const e of unit.children){if(e.tagName==='H3'&&e.textContent.includes('參考解答'))start=true;if(e.tagName==='H3'&&e.textContent.includes('課程提示'))start=false;if(start)solutions.push(e);}}
 else {for(const h of unit.querySelectorAll('h3')){if(!h.textContent.includes('參考解答'))continue;let e=h.nextElementSibling;while(e&&e.tagName!=='H3'){if(!e.textContent.startsWith('題目'))solutions.push(e);e=e.nextElementSibling;}}}
 }
+document.querySelectorAll('.exans').forEach(e=>solutions.push(e));
 // 改寫後的章節把易錯的地方寫回推導裡，只有仍以「易錯提醒」獨立成節的舊章節需要收合。
 for(const unit of document.querySelectorAll('.unit')){for(const h of unit.querySelectorAll('h3')){if(!h.textContent.includes('易錯提醒'))continue;let e=h;while(e&&!(e!==h&&e.tagName==='H3')){solutions.push(e);e=e.nextElementSibling;}}}
 const b=document.querySelector('#answers');b.onclick=()=>{const hide=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',String(hide));b.textContent=hide?'顯示參考解答':'隱藏參考解答';solutions.forEach(e=>e.classList.toggle('answer-hidden',hide));};
